@@ -722,8 +722,20 @@ function startWalkTimer(){
   clearInterval(STATE.timerInterval);
   STATE.timerInterval=setInterval(tickTimer,1000);
   addBubble('system','🚶 Walk started! Timer is running.');
-  // Mic already warm from session start — begin listening right away
-  setTimeout(startAutoListen,300);
+  // Stop any current audio/speech, then greet and start listening
+  stopAllAudio();
+  STATE.isSpeaking=false;
+  STATE.recording=false;
+  if(STATE.recognition){try{STATE.recognition.abort();}catch(e){} STATE.recognition=null;}
+  // Speak a walk-start greeting then immediately begin listening
+  var pname=PROFILE.name?PROFILE.name+' ':'';
+  var startMsg="Alright "+pname+"let's go! I'm right here with you — just start talking whenever you're ready.";
+  addBubble('bot',startMsg,STATE.voice,true);
+  STATE.isSpeaking=true;
+  speakText(startMsg,function(){
+    STATE.isSpeaking=false;
+    setTimeout(startAutoListen,500);
+  });
 }
 
 function tickTimer(){
@@ -895,7 +907,9 @@ function initMic(onReady){
 
 // ════════ AUTO LISTEN (Web Speech API) ════════
 function startAutoListen(){
-  if(STATE.paused||STATE.inRest||STATE.recording||STATE.isSpeaking)return;
+  // If AI is still speaking, wait and retry instead of silently giving up
+  if(STATE.isSpeaking){setTimeout(startAutoListen,500);return;}
+  if(STATE.paused||STATE.inRest||STATE.recording)return;
   if(!('webkitSpeechRecognition'in window)&&!('SpeechRecognition'in window)){
     document.getElementById('orb-hint').textContent='Voice not supported on this browser';
     return;
@@ -1112,11 +1126,17 @@ function endSession(reason){
     .then(function(data){
       var reply=data.reply||'Great walk today! You should be really proud of yourself. See you next time!';
       addBubble('bot',reply,STATE.voice,true);
+      // Mark session fully ended BEFORE speaking so mic never restarts
+      STATE.walkStarted=false;
+      STATE.isSpeaking=true;
+      stopListening();
       speakText(reply,function(){
+        STATE.isSpeaking=false;
+        stopListening(); // double-stop to be sure
         setTimeout(function(){showScreen('setup-screen');},1500);
       });
     })
-    .catch(function(){showScreen('setup-screen');});
+    .catch(function(){stopListening();showScreen('setup-screen');});
   } else {
     showScreen('setup-screen');
   }
