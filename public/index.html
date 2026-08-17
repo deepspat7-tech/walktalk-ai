@@ -1043,10 +1043,15 @@ function sendToBot(userText){
         var readyMsg=pname+'have you laced up and ready to head out? Once you are set, just tap the Start My Walk button below and I will begin timing us!';
         addBubble('bot',readyMsg,STATE.voice,true);
         STATE.isSpeaking=true;
-        speakText(readyMsg,function(){STATE.isSpeaking=false;});
+        speakText(readyMsg,function(){
+          STATE.isSpeaking=false;
+          // Restart listening after ready message too
+          if(!STATE.paused&&!STATE.inRest)setTimeout(startAutoListen,800);
+        });
         return;
       }
-      if(!STATE.paused&&!STATE.inRest){setTimeout(startAutoListen,400);}
+      // Give mobile mic enough time to reset before listening again
+      if(!STATE.paused&&!STATE.inRest){setTimeout(startAutoListen,800);}
     });
   })
   .catch(function(){
