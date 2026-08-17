@@ -6,62 +6,45 @@
 <title>WalkTalk AI</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+button{background:none;border:none;padding:0;cursor:pointer;font-family:inherit;color:inherit;-webkit-appearance:none}
 html,body{height:100%;overflow:hidden;font-family:'Segoe UI',sans-serif;background:#0d1117;color:#fff}
 .container{width:100%;max-width:430px;height:100vh;height:100dvh;display:flex;flex-direction:column;background:#0d1117;overflow:hidden;margin:0 auto}
 .screen{flex:1;display:none;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .screen.active{display:flex}
 .scroll-body{padding:20px;display:flex;flex-direction:column;gap:16px;padding-bottom:40px}
-
-/* HEADER */
 .screen-header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:48px 20px 20px;text-align:center;flex-shrink:0}
 .screen-header .logo{font-size:44px;margin-bottom:8px}
 .screen-header h1{font-size:28px;font-weight:700;color:#FF8C42}
 .screen-header p{color:rgba(255,255,255,.5);font-size:13px;margin-top:4px}
-
-/* FORM */
 .field-label{font-size:11px;font-weight:600;letter-spacing:1.2px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:8px;display:block}
 .text-input{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;font-size:16px;color:#fff;width:100%;outline:none;font-family:'Segoe UI',sans-serif;transition:border .2s}
 .text-input:focus{border-color:#FF8C42}
 .text-input::placeholder{color:rgba(255,255,255,.25)}
 select.text-input{appearance:none;cursor:pointer;background-color:#1a1a2e;color:#fff}
 select.text-input option{background-color:#1a1a2e;color:#fff}
-
-/* PILLS */
 .pill-row{display:flex;flex-wrap:wrap;gap:8px}
-.pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;font-size:13px;color:rgba(255,255,255,.7);cursor:pointer;transition:all .2s;user-select:none;position:relative}
+.pill{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:50px;padding:8px 16px;font-size:13px;color:rgba(255,255,255,.7);cursor:pointer;transition:all .2s;user-select:none;position:relative;display:inline-block}
 .pill.selected{border-color:#FF8C42;background:rgba(255,140,66,.15);color:#fff}
 .pill.coming-soon{opacity:.5;cursor:not-allowed}
 .pill.coming-soon::after{content:'Soon';font-size:9px;background:#FF8C42;color:#fff;padding:2px 5px;border-radius:4px;position:absolute;top:-6px;right:-4px;font-weight:600}
-
-/* AVATAR */
 .avatar-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.avatar-opt{font-size:26px;text-align:center;padding:10px 0;border-radius:12px;border:2px solid rgba(255,255,255,.1);cursor:pointer;background:rgba(255,255,255,.04);transition:all .2s}
+.avatar-opt{font-size:26px;text-align:center;padding:10px 0;border-radius:12px;border:2px solid rgba(255,255,255,.1);cursor:pointer;background:rgba(255,255,255,.04);transition:all .2s;width:100%;display:block}
 .avatar-opt.selected{border-color:#FF8C42;background:rgba(255,140,66,.15);transform:scale(1.08)}
-
-/* GENDER */
 .gender-row{display:flex;gap:10px}
-.gender-btn{flex:1;padding:14px;border:2px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.04);cursor:pointer;text-align:center;transition:all .2s}
+.gender-btn{flex:1;padding:14px;border:2px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.04);cursor:pointer;text-align:center;transition:all .2s;width:100%;display:block}
 .gender-btn .gicon{font-size:24px;display:block;margin-bottom:4px}
-.gender-btn .glabel{font-size:13px;font-weight:600;color:rgba(255,255,255,.6)}
+.gender-btn .glabel{font-size:13px;font-weight:600;color:rgba(255,255,255,.6);display:block}
 .gender-btn.selected{border-color:#FF8C42;background:rgba(255,140,66,.1)}
 .gender-btn.selected .glabel{color:#fff}
-
-/* CARDS */
 .motivation-card{background:rgba(255,140,66,.08);border:1px solid rgba(255,140,66,.2);border-radius:14px;padding:14px}
 .motivation-q{font-size:12px;color:rgba(255,255,255,.7);line-height:1.5;margin-bottom:10px}
 .motivation-q strong{color:#FF8C42}
 .coming-soon-notice{background:rgba(255,140,66,.06);border:1px solid rgba(255,140,66,.15);border-radius:10px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,.5);text-align:center}
 .coming-soon-notice span{color:#FF8C42;font-weight:600}
-
-/* BUTTONS */
-.btn-primary{background:linear-gradient(135deg,#FF8C42,#FF6B35);color:#fff;border:none;padding:16px;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;width:100%;font-family:'Segoe UI',sans-serif;transition:all .2s;box-shadow:0 4px 16px rgba(255,140,66,.3)}
+.btn-primary{background:linear-gradient(135deg,#FF8C42,#FF6B35);color:#fff;border:none;padding:16px;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;width:100%;font-family:'Segoe UI',sans-serif;transition:all .2s;box-shadow:0 4px 16px rgba(255,140,66,.3);display:block}
 .btn-primary:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
-.btn-primary:not(:disabled):active{transform:scale(.98)}
-.btn-secondary{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.12);padding:14px;border-radius:14px;font-size:15px;font-weight:500;cursor:pointer;width:100%;font-family:'Segoe UI',sans-serif}
-.btn-green{background:linear-gradient(135deg,#4CAF82,#3D9A6A);color:#fff;border:none;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif;box-shadow:0 4px 16px rgba(76,175,130,.3)}
-.btn-orange{background:linear-gradient(135deg,#FF8C42,#FF6B35);color:#fff;border:none;padding:14px 28px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
-
-/* BMI */
+.btn-secondary{background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.12);padding:14px;border-radius:14px;font-size:15px;font-weight:500;cursor:pointer;width:100%;font-family:'Segoe UI',sans-serif;display:block}
+.btn-green{background:linear-gradient(135deg,#4CAF82,#3D9A6A);color:#fff;border:none;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
 .bmi-result{background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:16px;padding:20px;text-align:center}
 .bmi-number{font-size:52px;font-weight:700;color:#FF8C42;line-height:1}
 .bmi-label{font-size:16px;font-weight:600;margin-top:6px}
@@ -71,8 +54,6 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 .bmi-categories{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
 .bmi-cat{padding:8px 10px;border-radius:10px;font-size:11px;text-align:center}
 .welcome-note{background:rgba(76,175,130,.1);border:1px solid rgba(76,175,130,.3);border-radius:14px;padding:16px;font-size:14px;line-height:1.7;color:rgba(255,255,255,.9);font-style:italic}
-
-/* SETUP */
 .setup-header{padding:48px 20px 14px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0}
 .setup-header-left h2{font-size:22px;font-weight:700;color:#FF8C42}
 .setup-header-left p{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px}
@@ -83,22 +64,20 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 .welcome-text .sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:1px}
 .section-label{font-size:11px;font-weight:600;letter-spacing:1.2px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:10px}
 .voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.voice-card{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 10px;cursor:pointer;text-align:center;transition:all .2s}
+.voice-card{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:14px;padding:14px 10px;cursor:pointer;text-align:center;transition:all .2s;width:100%;display:block}
 .voice-card.selected{border-color:#FF8C42;background:rgba(255,140,66,.08)}
-.voice-card .vc-avatar{font-size:26px;margin-bottom:5px}
-.voice-card .vc-name{font-size:13px;font-weight:600}
-.voice-card .vc-style{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.voice-card .vc-avatar{font-size:26px;margin-bottom:5px;display:block}
+.voice-card .vc-name{font-size:13px;font-weight:600;display:block}
+.voice-card .vc-style{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;display:block}
 .mood-row{display:flex;gap:5px}
-.mood-btn{flex:1;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:50px;padding:10px 3px;text-align:center;cursor:pointer;font-size:10px;color:rgba(255,255,255,.5);transition:all .2s}
+.mood-btn{flex:1;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:50px;padding:10px 3px;text-align:center;cursor:pointer;font-size:10px;color:rgba(255,255,255,.5);transition:all .2s;display:block}
 .mood-btn .emoji{font-size:18px;display:block;margin-bottom:3px}
 .mood-btn.selected{border-color:#FF8C42;background:rgba(255,140,66,.08);color:#fff}
 .dur-row{display:flex;gap:8px}
-.dur-btn{flex:1;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .2s}
+.dur-btn{flex:1;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .2s;display:block}
 .dur-btn.selected{border-color:#FF8C42;background:rgba(255,140,66,.08)}
 .dur-btn .mins{font-size:18px;font-weight:700;display:block}
-.dur-btn .lbl{font-size:10px;color:rgba(255,255,255,.4)}
-
-/* SESSION */
+.dur-btn .lbl{font-size:10px;color:rgba(255,255,255,.4);display:block}
 .session-top{padding:48px 16px 8px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .session-info .sname{font-size:15px;font-weight:600}
 .session-info .smood{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
@@ -111,19 +90,13 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 .timer-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .timer-time{font-size:24px;font-weight:700}
 .timer-lbl{font-size:9px;color:rgba(255,255,255,.4);letter-spacing:1px}
-
-/* STATS STRIP */
-.stats-strip{display:flex;justify-content:center;gap:20px;padding:4px 16px;flex-shrink:0}
+.stats-strip{display:flex;justify-content:center;gap:16px;padding:4px 16px;flex-shrink:0}
 .stat-pill{text-align:center}
 .stat-pill .sp-val{font-size:13px;font-weight:700;color:#FF8C42}
 .stat-pill .sp-key{font-size:9px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.5px}
-
-/* PAUSE */
-.pause-strip{display:flex;justify-content:center;padding:3px 0;flex-shrink:0}
-.pause-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;padding:7px 22px;border-radius:50px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
-.pause-btn.paused{background:rgba(255,140,66,.15);border-color:#FF8C42;color:#FF8C42}
-
-/* ORB */
+.session-controls{display:flex;align-items:center;gap:8px}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.07);color:#fff;font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0}
+.icon-btn.paused{background:rgba(255,140,66,.2);border-color:#FF8C42;color:#FF8C42}
 .orb-wrap{display:flex;flex-direction:column;align-items:center;padding:3px 0;flex-shrink:0}
 .orb{width:60px;height:60px;border-radius:50%;background:rgba(255,140,66,.1);border:2px solid rgba(255,140,66,.3);display:flex;align-items:center;justify-content:center;font-size:24px;transition:all .3s}
 .orb.bot-speaking{animation:pulse 1.2s ease-in-out infinite;border-color:#FF8C42}
@@ -132,22 +105,19 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,140,66,0)}50%{box-shadow:0 0 0 10px rgba(255,140,66,.1)}}
 @keyframes pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(76,175,130,0)}50%{box-shadow:0 0 0 10px rgba(76,175,130,.1)}}
 .orb-hint{font-size:10px;color:rgba(255,255,255,.35);margin-top:4px}
-
-/* CHAT */
-.chat-area{flex:1;overflow-y:auto;padding:4px 12px;display:flex;flex-direction:column;gap:7px;-webkit-overflow-scrolling:touch;min-height:0}
+.chat-area{flex:1;overflow-y:auto;padding:4px 12px;display:flex;flex-direction:column;gap:6px;-webkit-overflow-scrolling:touch;min-height:0}
 .bubble{max-width:86%;padding:9px 13px;border-radius:16px;font-size:13px;line-height:1.5;animation:pop .25s ease}
 @keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
 .bubble.bot{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);align-self:flex-start;border-bottom-left-radius:4px}
 .bubble.user{background:linear-gradient(135deg,#FF8C42,#FF6B35);align-self:flex-end;border-bottom-right-radius:4px}
 .bubble.system{background:rgba(76,175,130,.12);border:1px solid rgba(76,175,130,.25);align-self:center;max-width:92%;text-align:center;font-size:12px;color:rgba(255,255,255,.8);border-radius:10px}
-.bubble .sender{font-size:9px;opacity:.5;margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px}
+.bubble .sender{font-size:9px;opacity:.45;margin-bottom:2px;text-transform:uppercase;letter-spacing:.5px;display:none}
+.bubble.show-sender .sender{display:block}
 .typing{display:flex;gap:4px;align-items:center;padding:2px 0}
 .typing span{width:6px;height:6px;background:rgba(255,255,255,.4);border-radius:50%;animation:dot 1.2s ease-in-out infinite}
 .typing span:nth-child(2){animation-delay:.2s}
 .typing span:nth-child(3){animation-delay:.4s}
 @keyframes dot{0%,60%,100%{transform:scale(1);opacity:.4}30%{transform:scale(1.3);opacity:1}}
-
-/* ACTION CARDS */
 .action-card{border-radius:14px;padding:14px;margin:4px 12px;text-align:center;flex-shrink:0}
 .action-card h3{font-size:14px;font-weight:600;margin-bottom:6px}
 .action-card p{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:12px;line-height:1.5}
@@ -160,19 +130,26 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 .safety-card h3{color:#EF4444}
 .rest-card{background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.3)}
 .rest-card h3{color:#6366F1}
-
-/* MIC */
-.mic-strip{padding:6px 16px 20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-sheet{background:#1a1a2e;border-radius:20px 20px 0 0;padding:24px 20px 40px;width:100%;max-width:430px}
+.modal-sheet h3{font-size:18px;font-weight:700;color:#fff;margin-bottom:6px}
+.modal-sheet p{font-size:13px;color:rgba(255,255,255,.5);margin-bottom:16px}
+.modal-handle{width:40px;height:4px;background:rgba(255,255,255,.2);border-radius:2px;margin:0 auto 16px}
+.reason-select{background:#0d1117;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;padding:12px 14px;font-size:14px;width:100%;margin-bottom:14px;font-family:'Segoe UI',sans-serif;outline:none}
+.reason-select option{background:#0d1117;color:#fff}
+.modal-btn-row{display:flex;gap:10px}
+.btn-pause-modal{flex:1;background:rgba(255,140,66,.15);border:1px solid #FF8C42;color:#FF8C42;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
+.btn-cancel-modal{flex:1;background:rgba(239,68,68,.15);border:1px solid #EF4444;color:#EF4444;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
+.btn-keep-modal{flex:1;background:rgba(76,175,130,.15);border:1px solid #4CAF82;color:#4CAF82;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
+.mic-strip{padding:6px 16px 16px;display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0}
 .mic-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FF8C42,#FF6B35);border:none;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(255,140,66,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
-.mic-btn.recording{background:linear-gradient(135deg,#EF4444,#DC2626);animation:mic-pulse 1s ease-in-out infinite}
-@keyframes mic-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-
-/* STARS ANIMATION */
+.mic-btn.recording{background:linear-gradient(135deg,#4CAF82,#3D9A6A);animation:mic-pulse 1.5s ease-in-out infinite}
+@keyframes mic-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.mic-hint{font-size:10px;color:rgba(255,255,255,.3);text-align:center}
 .stars-overlay{position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden}
-.star{position:absolute;font-size:20px;animation:starFly 2s ease-out forwards}
+.star{position:absolute;animation:starFly 2s ease-out forwards}
 @keyframes starFly{0%{transform:translateY(100vh) scale(0);opacity:1}70%{opacity:1}100%{transform:translateY(-20vh) scale(1.5) rotate(360deg);opacity:0}}
-
-/* DASHBOARD */
 .dash-header{padding:48px 20px 14px;flex-shrink:0}
 .dash-header h2{font-size:22px;font-weight:700;color:#FF8C42}
 .dash-header p{font-size:12px;color:rgba(255,255,255,.4);margin-top:2px}
@@ -197,12 +174,28 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 .badge-pause{background:rgba(255,140,66,.15);color:#FF8C42}
 .badge-rest{background:rgba(99,102,241,.15);color:#6366F1}
 .badge-extended{background:rgba(76,175,130,.15);color:#4CAF82}
+.badge-reason{background:rgba(255,255,255,.08);color:rgba(255,255,255,.6)}
 .empty-dash{text-align:center;padding:40px 20px;color:rgba(255,255,255,.3);font-size:14px}
 .bottom-nav{display:flex;background:rgba(13,17,23,.95);border-top:1px solid rgba(255,255,255,.07);padding:8px 0 20px;flex-shrink:0}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px;border:none;background:none;color:rgba(255,255,255,.4);font-family:'Segoe UI',sans-serif;transition:all .2s}
 .nav-item .ni{font-size:22px}
 .nav-item .nl{font-size:10px;font-weight:500}
 .nav-item.active{color:#FF8C42}
+
+/* ── BEST WALK TROPHY ── */
+.best-walk-block{margin:0 20px;background:linear-gradient(135deg,rgba(255,215,0,.12),rgba(255,140,66,.08));border:1.5px solid rgba(255,215,0,.35);border-radius:18px;padding:18px;position:relative;overflow:hidden}
+.best-walk-block::before{content:'';position:absolute;top:-30px;right:-30px;width:100px;height:100px;background:radial-gradient(circle,rgba(255,215,0,.18),transparent 70%);pointer-events:none}
+.bwb-title{font-size:10px;font-weight:700;letter-spacing:1.4px;color:rgba(255,215,0,.7);text-transform:uppercase;margin-bottom:10px}
+.bwb-trophy{font-size:38px;margin-bottom:6px;display:block;text-align:center}
+.bwb-date{font-size:15px;font-weight:700;color:#FFD700;text-align:center;margin-bottom:2px}
+.bwb-time{font-size:12px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:14px}
+.bwb-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.bwb-stat{background:rgba(255,255,255,.06);border-radius:10px;padding:10px 6px;text-align:center}
+.bwb-sv{font-size:20px;font-weight:700;color:#FFD700}
+.bwb-sk{font-size:9px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.7px;margin-top:2px}
+.bwb-badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.bwb-companion{font-size:12px;color:rgba(255,255,255,.5);text-align:center;margin-top:10px}
+.best-walk-empty{margin:0 20px;background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.1);border-radius:18px;padding:24px;text-align:center;color:rgba(255,255,255,.3);font-size:13px}
 </style>
 </head>
 <body>
@@ -216,18 +209,28 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
     <p>Your emotionally intelligent walking companion</p>
   </div>
   <div class="scroll-body">
-    <div><label class="field-label">Your Full Name</label><input class="text-input" id="reg-name" type="text" placeholder="What should your companion call you?" oninput="checkRegReady()"/></div>
-    <div><label class="field-label">Email Address</label><input class="text-input" id="reg-email" type="email" placeholder="your@email.com" oninput="checkRegReady()"/></div>
+    <div>
+      <label class="field-label">Your Full Name</label>
+      <input class="text-input" id="reg-name" type="text" placeholder="What should your companion call you?"/>
+    </div>
+    <div>
+      <label class="field-label">Email Address</label>
+      <input class="text-input" id="reg-email" type="email" placeholder="your@email.com"/>
+    </div>
     <div>
       <label class="field-label">Gender</label>
-      <div class="gender-row">
-        <div class="gender-btn" data-gender="male" onclick="selectGender(this)"><span class="gicon">👨</span><span class="glabel">Male</span></div>
-        <div class="gender-btn" data-gender="female" onclick="selectGender(this)"><span class="gicon">👩</span><span class="glabel">Female</span></div>
+      <div class="gender-row" id="gender-row">
+        <button class="gender-btn" id="gender-male" type="button">
+          <span class="gicon">👨</span><span class="glabel">Male</span>
+        </button>
+        <button class="gender-btn" id="gender-female" type="button">
+          <span class="gicon">👩</span><span class="glabel">Female</span>
+        </button>
       </div>
     </div>
     <div>
       <label class="field-label">Age Range</label>
-      <select class="text-input" id="reg-age" onchange="checkRegReady()">
+      <select class="text-input" id="reg-age">
         <option value="">Select your age range</option>
         <option value="18-24">18 – 24</option>
         <option value="25-34">25 – 34</option>
@@ -239,38 +242,38 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
     </div>
     <div>
       <label class="field-label">Pick Your Avatar</label>
-      <div class="avatar-grid">
-        <div class="avatar-opt" data-av="🧑" onclick="selectAvatar(this)">🧑</div>
-        <div class="avatar-opt" data-av="👨" onclick="selectAvatar(this)">👨</div>
-        <div class="avatar-opt" data-av="👩" onclick="selectAvatar(this)">👩</div>
-        <div class="avatar-opt" data-av="🧔" onclick="selectAvatar(this)">🧔</div>
-        <div class="avatar-opt" data-av="👴" onclick="selectAvatar(this)">👴</div>
-        <div class="avatar-opt" data-av="👵" onclick="selectAvatar(this)">👵</div>
-        <div class="avatar-opt" data-av="🧕" onclick="selectAvatar(this)">🧕</div>
-        <div class="avatar-opt" data-av="👨‍💼" onclick="selectAvatar(this)">👨‍💼</div>
-        <div class="avatar-opt" data-av="👩‍💼" onclick="selectAvatar(this)">👩‍💼</div>
-        <div class="avatar-opt" data-av="🦸" onclick="selectAvatar(this)">🦸</div>
+      <div class="avatar-grid" id="avatar-grid">
+        <button class="avatar-opt" id="av-0" type="button">🧑</button>
+        <button class="avatar-opt" id="av-1" type="button">👨</button>
+        <button class="avatar-opt" id="av-2" type="button">👩</button>
+        <button class="avatar-opt" id="av-3" type="button">🧔</button>
+        <button class="avatar-opt" id="av-4" type="button">👴</button>
+        <button class="avatar-opt" id="av-5" type="button">👵</button>
+        <button class="avatar-opt" id="av-6" type="button">🧕</button>
+        <button class="avatar-opt" id="av-7" type="button">👨‍💼</button>
+        <button class="avatar-opt" id="av-8" type="button">👩‍💼</button>
+        <button class="avatar-opt" id="av-9" type="button">🦸</button>
       </div>
     </div>
     <div>
       <label class="field-label">Preferred Language</label>
       <div class="pill-row">
-        <div class="pill selected" data-lang="en" onclick="selectLanguage(this)">🇬🇧 English</div>
-        <div class="pill coming-soon" onclick="showComingSoon()">🇮🇳 हिंदी</div>
-        <div class="pill coming-soon" onclick="showComingSoon()">🇸🇦 العربية</div>
+        <button class="pill selected" id="lang-en" type="button">🇬🇧 English</button>
+        <button class="pill coming-soon" type="button">🇮🇳 हिंदी</button>
+        <button class="pill coming-soon" type="button">🇸🇦 العربية</button>
       </div>
-      <div class="coming-soon-notice" id="coming-soon-msg" style="display:none;margin-top:10px"><span>Hindi & Arabic voices coming soon!</span> We're working on natural-sounding voices in these languages.</div>
+      <div class="coming-soon-notice" id="coming-soon-msg" style="display:none;margin-top:10px"><span>Hindi & Arabic coming soon!</span></div>
     </div>
     <div>
       <div class="motivation-card">
         <div class="motivation-q"><strong>Why do you walk?</strong> Select all that apply</div>
         <div class="pill-row" id="why-pills">
-          <div class="pill" onclick="togglePill(this,'why')">Stay fit</div>
-          <div class="pill" onclick="togglePill(this,'why')">Clear my head</div>
-          <div class="pill" onclick="togglePill(this,'why')">Reduce stress</div>
-          <div class="pill" onclick="togglePill(this,'why')">Need company</div>
-          <div class="pill" onclick="togglePill(this,'why')">Daily habit</div>
-          <div class="pill" onclick="togglePill(this,'why')">Lose weight</div>
+          <button class="pill" type="button">Stay fit</button>
+          <button class="pill" type="button">Clear my head</button>
+          <button class="pill" type="button">Reduce stress</button>
+          <button class="pill" type="button">Need company</button>
+          <button class="pill" type="button">Daily habit</button>
+          <button class="pill" type="button">Lose weight</button>
         </div>
       </div>
     </div>
@@ -278,16 +281,16 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
       <div class="motivation-card">
         <div class="motivation-q"><strong>What conversations energise you?</strong></div>
         <div class="pill-row" id="energy-pills">
-          <div class="pill" onclick="togglePill(this,'energy')">Motivation</div>
-          <div class="pill" onclick="togglePill(this,'energy')">Fun & humour</div>
-          <div class="pill" onclick="togglePill(this,'energy')">Interesting facts</div>
-          <div class="pill" onclick="togglePill(this,'energy')">Life advice</div>
-          <div class="pill" onclick="togglePill(this,'energy')">Good company</div>
-          <div class="pill" onclick="togglePill(this,'energy')">Career & goals</div>
+          <button class="pill" type="button">Motivation</button>
+          <button class="pill" type="button">Fun & humour</button>
+          <button class="pill" type="button">Interesting facts</button>
+          <button class="pill" type="button">Life advice</button>
+          <button class="pill" type="button">Good company</button>
+          <button class="pill" type="button">Career & goals</button>
         </div>
       </div>
     </div>
-    <button class="btn-primary" id="reg-btn" disabled onclick="goToBMI()">Continue to Health Profile →</button>
+    <button class="btn-primary" id="reg-btn" type="button" disabled>Continue to Health Profile →</button>
   </div>
 </div>
 
@@ -298,12 +301,12 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
     <div>
       <label class="field-label">Height</label>
       <div style="display:flex;gap:8px">
-        <input class="text-input" id="bmi-height-cm" type="number" placeholder="cm (e.g. 170)" oninput="calcBMI()" style="flex:1"/>
-        <input class="text-input" id="bmi-height-ft" type="number" placeholder="ft (e.g. 5.7)" oninput="calcBMI()" style="flex:1"/>
+        <input class="text-input" id="bmi-height-cm" type="number" placeholder="cm (e.g. 170)" style="flex:1"/>
+        <input class="text-input" id="bmi-height-ft" type="number" placeholder="ft (e.g. 5.7)" style="flex:1"/>
       </div>
       <div style="font-size:11px;color:rgba(255,255,255,.3);margin-top:4px">Enter cm OR feet</div>
     </div>
-    <div><label class="field-label">Weight (kg)</label><input class="text-input" id="bmi-weight" type="number" placeholder="e.g. 75" oninput="calcBMI()"/></div>
+    <div><label class="field-label">Weight (kg)</label><input class="text-input" id="bmi-weight" type="number" placeholder="e.g. 75"/></div>
     <div id="bmi-result-wrap" style="display:none">
       <div class="bmi-result">
         <div class="bmi-number" id="bmi-val">--</div>
@@ -319,8 +322,8 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
       </div>
     </div>
     <div id="welcome-note-wrap" style="display:none"><div class="welcome-note" id="welcome-note-text"></div></div>
-    <button class="btn-primary" onclick="completeReg()">Let's Start Walking 🚶</button>
-    <button class="btn-secondary" onclick="showScreen('reg-screen')">← Go Back</button>
+    <button class="btn-primary" id="bmi-next-btn" type="button">Let's Start Walking 🚶</button>
+    <button class="btn-secondary" id="bmi-back-btn" type="button">← Go Back</button>
   </div>
 </div>
 
@@ -328,7 +331,7 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 <div id="setup-screen" class="screen">
   <div class="setup-header">
     <div class="setup-header-left"><h2>WalkTalk AI</h2><p>Set up your walk for today</p></div>
-    <button class="settings-btn" onclick="showScreen('reg-screen')" title="Edit Profile">⚙️</button>
+    <button class="settings-btn" id="settings-btn" type="button">⚙️</button>
   </div>
   <div class="welcome-bar">
     <div class="welcome-avatar" id="welcome-avatar">🧑</div>
@@ -340,37 +343,37 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
   <div class="scroll-body" style="padding-top:14px">
     <div>
       <div class="section-label">Choose Your Companion</div>
-      <div class="voice-grid">
-        <div class="voice-card" data-voice="Aryan" data-vgender="male" onclick="selectVoice(this)"><div class="vc-avatar">👨</div><div class="vc-name">Aryan</div><div class="vc-style">Calm · Coach</div></div>
-        <div class="voice-card" data-voice="Max" data-vgender="male" onclick="selectVoice(this)"><div class="vc-avatar">🧔</div><div class="vc-name">Max</div><div class="vc-style">Energetic · Fun</div></div>
-        <div class="voice-card" data-voice="Priya" data-vgender="female" onclick="selectVoice(this)"><div class="vc-avatar">👩</div><div class="vc-name">Priya</div><div class="vc-style">Warm · Nurturing</div></div>
-        <div class="voice-card" data-voice="Zara" data-vgender="female" onclick="selectVoice(this)"><div class="vc-avatar">👩‍🦱</div><div class="vc-name">Zara</div><div class="vc-style">Witty · Friend</div></div>
+      <div class="voice-grid" id="voice-grid">
+        <button class="voice-card" id="voice-Aryan" type="button"><span class="vc-avatar">👨</span><span class="vc-name">Aryan</span><span class="vc-style">Calm · Coach</span></button>
+        <button class="voice-card" id="voice-Max" type="button"><span class="vc-avatar">🧔</span><span class="vc-name">Max</span><span class="vc-style">Energetic · Fun</span></button>
+        <button class="voice-card" id="voice-Priya" type="button"><span class="vc-avatar">👩</span><span class="vc-name">Priya</span><span class="vc-style">Warm · Nurturing</span></button>
+        <button class="voice-card" id="voice-Zara" type="button"><span class="vc-avatar">👩‍🦱</span><span class="vc-name">Zara</span><span class="vc-style">Witty · Friend</span></button>
       </div>
     </div>
     <div>
       <div class="section-label">How Are You Feeling?</div>
-      <div class="mood-row">
-        <div class="mood-btn" data-mood="Happy" onclick="selectMood(this)"><span class="emoji">😊</span>Happy</div>
-        <div class="mood-btn" data-mood="Okay" onclick="selectMood(this)"><span class="emoji">😐</span>Okay</div>
-        <div class="mood-btn" data-mood="Tired" onclick="selectMood(this)"><span class="emoji">😴</span>Tired</div>
-        <div class="mood-btn" data-mood="Stressed" onclick="selectMood(this)"><span class="emoji">😤</span>Stressed</div>
-        <div class="mood-btn" data-mood="Sad" onclick="selectMood(this)"><span class="emoji">😔</span>Sad</div>
+      <div class="mood-row" id="mood-row">
+        <button class="mood-btn" id="mood-Happy" type="button"><span class="emoji">😊</span>Happy</button>
+        <button class="mood-btn" id="mood-Okay" type="button"><span class="emoji">😐</span>Okay</button>
+        <button class="mood-btn" id="mood-Tired" type="button"><span class="emoji">😴</span>Tired</button>
+        <button class="mood-btn" id="mood-Stressed" type="button"><span class="emoji">😤</span>Stressed</button>
+        <button class="mood-btn" id="mood-Sad" type="button"><span class="emoji">😔</span>Sad</button>
       </div>
     </div>
     <div>
       <div class="section-label">Walk Duration</div>
-      <div class="dur-row">
-        <div class="dur-btn" data-mins="10" onclick="selectDur(this)"><span class="mins">10</span><span class="lbl">min</span></div>
-        <div class="dur-btn" data-mins="20" onclick="selectDur(this)"><span class="mins">20</span><span class="lbl">min</span></div>
-        <div class="dur-btn" data-mins="30" onclick="selectDur(this)"><span class="mins">30</span><span class="lbl">min</span></div>
-        <div class="dur-btn" data-mins="45" onclick="selectDur(this)"><span class="mins">45</span><span class="lbl">min</span></div>
+      <div class="dur-row" id="dur-row">
+        <button class="dur-btn" id="dur-10" type="button"><span class="mins">10</span><span class="lbl">min</span></button>
+        <button class="dur-btn" id="dur-20" type="button"><span class="mins">20</span><span class="lbl">min</span></button>
+        <button class="dur-btn" id="dur-30" type="button"><span class="mins">30</span><span class="lbl">min</span></button>
+        <button class="dur-btn" id="dur-45" type="button"><span class="mins">45</span><span class="lbl">min</span></button>
       </div>
     </div>
-    <button class="btn-primary" id="start-btn" disabled onclick="startSession()">Start Conversation 🎙️</button>
+    <button class="btn-primary" id="start-btn" type="button" disabled>Start Conversation 🎙️</button>
   </div>
   <nav class="bottom-nav">
-    <button class="nav-item active" onclick="showSetup()"><span class="ni">🚶</span><span class="nl">Walk</span></button>
-    <button class="nav-item" onclick="showDashboard()"><span class="ni">📊</span><span class="nl">Progress</span></button>
+    <button class="nav-item active" id="nav-walk" type="button"><span class="ni">🚶</span><span class="nl">Walk</span></button>
+    <button class="nav-item" id="nav-dash" type="button"><span class="ni">📊</span><span class="nl">Progress</span></button>
   </nav>
 </div>
 
@@ -381,7 +384,10 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
       <div class="sname" id="companion-name">With Aryan</div>
       <div class="smood" id="mood-tag">Feeling Happy</div>
     </div>
-    <button class="end-btn" onclick="confirmEnd()">End Walk</button>
+    <div class="session-controls">
+      <button class="icon-btn pause-icon-btn" id="pause-btn" type="button" title="Pause Walk">⏸</button>
+      <button class="end-btn" id="end-btn" type="button">End Walk</button>
+    </div>
   </div>
   <div class="timer-wrap">
     <div class="timer-ring">
@@ -396,51 +402,45 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
     </div>
   </div>
   <div class="stats-strip">
+    <div class="stat-pill"><div class="sp-val" id="stat-steps">0</div><div class="sp-key">Steps</div></div>
     <div class="stat-pill"><div class="sp-val" id="stat-pauses">0</div><div class="sp-key">Pauses</div></div>
-    <div class="stat-pill"><div class="sp-val" id="stat-rest">0m</div><div class="sp-key">Rest Time</div></div>
-    <div class="stat-pill"><div class="sp-val" id="stat-extensions">0</div><div class="sp-key">Extensions</div></div>
-  </div>
-  <div class="pause-strip">
-    <button class="pause-btn" id="pause-btn" onclick="togglePause()">⏸ Pause Walk</button>
+    <div class="stat-pill"><div class="sp-val" id="stat-rest">0m</div><div class="sp-key">Rest</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stat-ext">0</div><div class="sp-key">Extensions</div></div>
   </div>
   <div class="orb-wrap">
     <div class="orb bot-speaking" id="orb">🎙</div>
     <div class="orb-hint" id="orb-hint">Starting...</div>
   </div>
   <div class="chat-area" id="chat"></div>
-  <!-- Pre-walk confirmation -->
   <div class="action-card prewalk-card" id="prewalk-card" style="display:none">
     <h3>Ready to Walk? 🚶</h3>
-    <p>Tap below when you step out — your walk timer will begin!</p>
-    <div class="btn-row"><button class="btn-green" onclick="startWalkTimer()">Start My Walk ▶</button></div>
+    <p>Tap below when you step out — your timer starts now!</p>
+    <div class="btn-row"><button class="btn-green" id="start-walk-btn" type="button">Start My Walk ▶</button></div>
   </div>
-  <!-- Extension prompt (3 min warning) -->
   <div class="action-card extend-card" id="extend-card" style="display:none">
-    <h3>⏰ Almost There!</h3>
-    <p>3 minutes left on your walk. You're doing great! Would you like to extend for another round?</p>
+    <h3>⏰ Almost Done!</h3>
+    <p>3 minutes left. Would you like to extend?</p>
     <div class="btn-row">
-      <button class="btn-green" onclick="userWantsExtend()">Yes, keep going! 💪</button>
-      <button class="btn-secondary" style="padding:10px 20px;border-radius:50px;width:auto" onclick="userDeclineExtend()">No, finish up</button>
+      <button class="btn-green" id="extend-yes-btn" type="button">Yes, keep going! 💪</button>
+      <button style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif" id="extend-no-btn" type="button">No, finish up</button>
     </div>
   </div>
-  <!-- Safety check before extending -->
   <div class="action-card safety-card" id="safety-card" style="display:none">
     <h3>🩺 Quick Check</h3>
-    <p>Before we extend — how are you feeling right now? Any breathlessness, chest tightness, or extreme fatigue?</p>
+    <p>Any breathlessness, chest tightness, or extreme fatigue?</p>
     <div class="btn-row">
-      <button class="btn-green" onclick="safetyOk()">I feel good! ✅</button>
-      <button style="background:rgba(239,68,68,.2);color:#EF4444;border:1px solid rgba(239,68,68,.3);padding:10px 20px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif" onclick="safetyNeedRest()">I need a rest 🛑</button>
+      <button class="btn-green" id="safety-ok-btn" type="button">I feel good! ✅</button>
+      <button style="background:rgba(239,68,68,.15);color:#EF4444;border:1px solid rgba(239,68,68,.3);padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif" id="safety-rest-btn" type="button">Need a rest 🛑</button>
     </div>
   </div>
-  <!-- Rest mode -->
   <div class="action-card rest-card" id="rest-card" style="display:none">
     <h3>💜 Rest Mode — Timer Paused</h3>
-    <p>Take your time. Hydrate, breathe deeply, and recover. Your timer is paused. Tap when you're ready to continue.</p>
-    <div class="btn-row"><button class="btn-green" onclick="resumeFromRest()">I'm ready to continue ▶</button></div>
+    <p>Hydrate, breathe deeply. Tap when ready to continue.</p>
+    <div class="btn-row"><button class="btn-green" id="resume-rest-btn" type="button">I'm ready ▶</button></div>
   </div>
-  <div class="mic-strip" style="flex-direction:column;gap:4px;">
-    <button class="mic-btn" id="mic-btn" onclick="toggleMic()">🎤</button>
-    <div style="font-size:10px;color:rgba(255,255,255,.3);text-align:center;">Auto-listening · tap to force stop</div>
+  <div class="mic-strip">
+    <button class="mic-btn" id="mic-btn" type="button">🎤</button>
+    <div class="mic-hint">Listening automatically</div>
   </div>
 </div>
 
@@ -448,68 +448,207 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 <div id="dashboard-screen" class="screen">
   <div class="dash-header"><h2>My Progress</h2><p>Your walking journey at a glance</p></div>
   <div class="stat-cards" id="stat-cards"></div>
+  <div id="best-walk-block"></div>
   <div style="padding:14px 20px 8px;font-size:11px;font-weight:600;letter-spacing:1px;color:rgba(255,255,255,.4);text-transform:uppercase">Recent Walks</div>
   <div class="walk-list" id="walk-list"></div>
   <nav class="bottom-nav">
-    <button class="nav-item" onclick="showSetup()"><span class="ni">🚶</span><span class="nl">Walk</span></button>
-    <button class="nav-item active" onclick="showDashboard()"><span class="ni">📊</span><span class="nl">Progress</span></button>
+    <button class="nav-item" id="nav-walk2" type="button"><span class="ni">🚶</span><span class="nl">Walk</span></button>
+    <button class="nav-item active" id="nav-dash2" type="button"><span class="ni">📊</span><span class="nl">Progress</span></button>
   </nav>
 </div>
 
-<!-- Stars overlay -->
-<div class="stars-overlay" id="stars-overlay"></div>
-
+<!-- END WALK MODAL -->
+<div class="modal-overlay" id="end-modal">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <h3>Ending your walk?</h3>
+    <p>Let us know what happened so we can save it to your progress.</p>
+    <select class="reason-select" id="end-reason">
+      <option value="">Select a reason...</option>
+      <option value="Completed my walk">✅ Completed my walk</option>
+      <option value="Got tired">😴 Got tired</option>
+      <option value="Got a call">📞 Got a call</option>
+      <option value="Will start again tomorrow">📅 Will start again tomorrow</option>
+      <option value="Something came up">⚡ Something came up</option>
+      <option value="Other">💬 Other</option>
+    </select>
+    <div class="modal-btn-row">
+      <button class="btn-keep-modal" id="modal-keep-btn" type="button">Keep Walking</button>
+      <button class="btn-pause-modal" id="modal-pause-btn" type="button">Pause Walk</button>
+      <button class="btn-cancel-modal" id="modal-end-btn" type="button">End Walk</button>
+    </div>
+  </div>
 </div>
-<script>
-// ── PROFILE & STATE ──
-const PROFILE={name:'',email:'',gender:'',age:'',avatar:'',language:'en',why:[],energy:[],bmi:null,bmiCat:''};
-const STATE={
-  voice:null,voiceGender:null,mood:null,duration:null,
-  messages:[],timerInterval:null,restInterval:null,
-  secondsLeft:0,totalSeconds:0,
-  recording:false,recognition:null,
-  paused:false,inRest:false,
-  walkStarted:false,chatExchanges:0,
-  extensionWarningShown:false,
-  extensionCount:0,
-  pauseCount:0,
-  totalRestSeconds:0,
-  restStartTime:null
-};
 
-// ── REGISTRATION ──
-function selectGender(el){document.querySelectorAll('.gender-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');PROFILE.gender=el.dataset.gender;checkRegReady();}
-function selectAvatar(el){document.querySelectorAll('.avatar-opt').forEach(a=>a.classList.remove('selected'));el.classList.add('selected');PROFILE.avatar=el.dataset.av;checkRegReady();}
-function selectLanguage(el){if(el.classList.contains('coming-soon'))return;PROFILE.language=el.dataset.lang;}
-function showComingSoon(){const m=document.getElementById('coming-soon-msg');m.style.display='block';setTimeout(()=>m.style.display='none',4000);}
-function togglePill(el,group){
-  el.classList.toggle('selected');
-  if(group==='why') PROFILE.why=[...document.querySelectorAll('#why-pills .pill.selected')].map(p=>p.textContent.trim());
-  if(group==='energy') PROFILE.energy=[...document.querySelectorAll('#energy-pills .pill.selected')].map(p=>p.textContent.trim());
-}
+<div class="stars-overlay" id="stars-overlay"></div>
+</div>
+
+<script>
+// ════════ PROFILE & STATE ════════
+const PROFILE={name:'',email:'',gender:'',age:'',avatar:'',language:'en',why:[],energy:[],bmi:null,bmiCat:''};
+const STATE={voice:null,voiceGender:null,mood:null,duration:null,messages:[],timerInterval:null,silenceTimer:null,restInterval:null,secondsLeft:0,totalSeconds:0,recording:false,recognition:null,isSpeaking:false,paused:false,inRest:false,walkStarted:false,chatExchanges:0,extensionWarningShown:false,extensionCount:0,pauseCount:0,totalRestSeconds:0,restStartTime:null,stepCount:0,lastAccel:null,lastBubbleType:null};
+const VOICE_GENDER={Aryan:'male',Max:'male',Priya:'female',Zara:'female'};
+let currentAudio=null;
+
+// ════════ WIRE UP ALL BUTTONS ════════
+window.addEventListener('DOMContentLoaded',function(){
+
+  // Registration inputs
+  document.getElementById('reg-name').addEventListener('input',checkRegReady);
+  document.getElementById('reg-email').addEventListener('input',checkRegReady);
+  document.getElementById('reg-age').addEventListener('change',checkRegReady);
+
+  // Gender buttons
+  document.getElementById('gender-male').addEventListener('click',function(){
+    document.getElementById('gender-male').classList.add('selected');
+    document.getElementById('gender-female').classList.remove('selected');
+    PROFILE.gender='male'; checkRegReady();
+  });
+  document.getElementById('gender-female').addEventListener('click',function(){
+    document.getElementById('gender-female').classList.add('selected');
+    document.getElementById('gender-male').classList.remove('selected');
+    PROFILE.gender='female'; checkRegReady();
+  });
+
+  // Avatar buttons
+  var avatars=['🧑','👨','👩','🧔','👴','👵','🧕','👨‍💼','👩‍💼','🦸'];
+  for(var i=0;i<10;i++){
+    (function(idx){
+      document.getElementById('av-'+idx).addEventListener('click',function(){
+        document.querySelectorAll('.avatar-opt').forEach(function(a){a.classList.remove('selected');});
+        this.classList.add('selected');
+        PROFILE.avatar=avatars[idx]; checkRegReady();
+      });
+    })(i);
+  }
+
+  // Language pills
+  document.getElementById('lang-en').addEventListener('click',function(){
+    document.querySelectorAll('.pill[id^="lang-"]').forEach(function(p){p.classList.remove('selected');});
+    this.classList.add('selected'); PROFILE.language='en';
+  });
+  document.querySelectorAll('.pill.coming-soon').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var m=document.getElementById('coming-soon-msg');
+      m.style.display='block';
+      setTimeout(function(){m.style.display='none';},3000);
+    });
+  });
+
+  // Why pills
+  document.querySelectorAll('#why-pills .pill').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      this.classList.toggle('selected');
+      PROFILE.why=Array.from(document.querySelectorAll('#why-pills .pill.selected')).map(function(p){return p.textContent.trim();});
+    });
+  });
+
+  // Energy pills
+  document.querySelectorAll('#energy-pills .pill').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      this.classList.toggle('selected');
+      PROFILE.energy=Array.from(document.querySelectorAll('#energy-pills .pill.selected')).map(function(p){return p.textContent.trim();});
+    });
+  });
+
+  // Reg continue button
+  document.getElementById('reg-btn').addEventListener('click',function(){
+    PROFILE.name=document.getElementById('reg-name').value.trim();
+    PROFILE.email=document.getElementById('reg-email').value.trim();
+    PROFILE.age=document.getElementById('reg-age').value;
+    showScreen('bmi-screen');
+  });
+
+  // BMI inputs
+  document.getElementById('bmi-height-cm').addEventListener('input',calcBMI);
+  document.getElementById('bmi-height-ft').addEventListener('input',calcBMI);
+  document.getElementById('bmi-weight').addEventListener('input',calcBMI);
+  document.getElementById('bmi-next-btn').addEventListener('click',completeReg);
+  document.getElementById('bmi-back-btn').addEventListener('click',function(){showScreen('reg-screen');});
+
+  // Setup screen
+  document.getElementById('settings-btn').addEventListener('click',function(){showScreen('reg-screen');});
+  document.getElementById('nav-walk').addEventListener('click',function(){showScreen('setup-screen');});
+  document.getElementById('nav-dash').addEventListener('click',function(){renderDashboard();showScreen('dashboard-screen');});
+  document.getElementById('nav-walk2').addEventListener('click',function(){showScreen('setup-screen');});
+  document.getElementById('nav-dash2').addEventListener('click',function(){renderDashboard();showScreen('dashboard-screen');});
+
+  // Voice cards
+  ['Aryan','Max','Priya','Zara'].forEach(function(name){
+    document.getElementById('voice-'+name).addEventListener('click',function(){
+      document.querySelectorAll('.voice-card').forEach(function(c){c.classList.remove('selected');});
+      this.classList.add('selected');
+      STATE.voice=name; STATE.voiceGender=VOICE_GENDER[name]; checkStartReady();
+    });
+  });
+
+  // Mood buttons
+  ['Happy','Okay','Tired','Stressed','Sad'].forEach(function(mood){
+    document.getElementById('mood-'+mood).addEventListener('click',function(){
+      document.querySelectorAll('.mood-btn').forEach(function(c){c.classList.remove('selected');});
+      this.classList.add('selected');
+      STATE.mood=mood; checkStartReady();
+    });
+  });
+
+  // Duration buttons
+  [10,20,30,45].forEach(function(mins){
+    document.getElementById('dur-'+mins).addEventListener('click',function(){
+      document.querySelectorAll('.dur-btn').forEach(function(c){c.classList.remove('selected');});
+      this.classList.add('selected');
+      STATE.duration=mins; checkStartReady();
+    });
+  });
+
+  // Start session
+  document.getElementById('start-btn').addEventListener('click',startSession);
+
+  // Session screen
+  document.getElementById('end-btn').addEventListener('click',openEndModal);
+  document.getElementById('pause-btn').addEventListener('click',togglePause);
+  document.getElementById('mic-btn').addEventListener('click',toggleMic);
+  document.getElementById('start-walk-btn').addEventListener('click',startWalkTimer);
+  document.getElementById('extend-yes-btn').addEventListener('click',function(){hideAllCards();document.getElementById('safety-card').style.display='block';});
+  document.getElementById('extend-no-btn').addEventListener('click',function(){hideAllCards();setTimeout(startAutoListen,500);});
+  document.getElementById('safety-ok-btn').addEventListener('click',safetyOk);
+  document.getElementById('safety-rest-btn').addEventListener('click',safetyNeedRest);
+  document.getElementById('resume-rest-btn').addEventListener('click',resumeFromRest);
+
+  // End modal
+  document.getElementById('modal-keep-btn').addEventListener('click',function(){document.getElementById('end-modal').classList.remove('open');});
+  document.getElementById('modal-pause-btn').addEventListener('click',pauseFromModal);
+  document.getElementById('modal-end-btn').addEventListener('click',cancelFromModal);
+
+  // Load saved profile
+  loadProfile();
+});
+
+// ════════ HELPERS ════════
+function showScreen(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById(id).classList.add('active');}
 function checkRegReady(){
-  const name=document.getElementById('reg-name').value.trim();
-  const email=document.getElementById('reg-email').value.trim();
-  const age=document.getElementById('reg-age').value;
+  var name=document.getElementById('reg-name').value.trim();
+  var email=document.getElementById('reg-email').value.trim();
+  var age=document.getElementById('reg-age').value;
   document.getElementById('reg-btn').disabled=!(name&&email&&PROFILE.gender&&age&&PROFILE.avatar);
 }
-function goToBMI(){
-  PROFILE.name=document.getElementById('reg-name').value.trim();
-  PROFILE.email=document.getElementById('reg-email').value.trim();
-  PROFILE.age=document.getElementById('reg-age').value;
-  showScreen('bmi-screen');
+function checkStartReady(){document.getElementById('start-btn').disabled=!(STATE.voice&&STATE.mood&&STATE.duration);}
+
+function loadProfile(){
+  var saved=localStorage.getItem('walktalk_profile');
+  if(saved){try{var p=JSON.parse(saved);Object.assign(PROFILE,p);document.getElementById('welcome-name').textContent='Hey '+PROFILE.name+'!';document.getElementById('welcome-avatar').textContent=PROFILE.avatar||'🧑';document.getElementById('welcome-bmi-sub').textContent=PROFILE.bmi?'BMI '+PROFILE.bmi+' · '+PROFILE.bmiCat:"Ready for today's walk?";showScreen('setup-screen');}catch(e){showScreen('reg-screen');}}
+  else{showScreen('reg-screen');}
 }
 
-// ── BMI ──
+// ════════ BMI ════════
 function calcBMI(){
-  const cm=parseFloat(document.getElementById('bmi-height-cm').value);
-  const ft=parseFloat(document.getElementById('bmi-height-ft').value);
-  const weight=parseFloat(document.getElementById('bmi-weight').value);
-  let hm=cm?cm/100:ft?ft*0.3048:null;
+  var cm=parseFloat(document.getElementById('bmi-height-cm').value);
+  var ft=parseFloat(document.getElementById('bmi-height-ft').value);
+  var weight=parseFloat(document.getElementById('bmi-weight').value);
+  var hm=cm?cm/100:ft?ft*0.3048:null;
   if(!hm||!weight||hm<=0||weight<=0){document.getElementById('bmi-result-wrap').style.display='none';document.getElementById('welcome-note-wrap').style.display='none';return;}
-  const bmi=weight/(hm*hm),bmiR=Math.round(bmi*10)/10;
+  var bmi=weight/(hm*hm),bmiR=Math.round(bmi*10)/10;
   PROFILE.bmi=bmiR;
-  let cat,color,pct;
+  var cat,color,pct;
   if(bmi<18.5){cat='Underweight';color='#4CAF82';pct=Math.max(2,(bmi/18.5)*25);}
   else if(bmi<25){cat='Normal Weight';color='#FFC107';pct=25+((bmi-18.5)/6.5)*25;}
   else if(bmi<30){cat='Overweight';color='#FF8C42';pct=50+((bmi-25)/5)*25;}
@@ -523,16 +662,13 @@ function calcBMI(){
   document.getElementById('welcome-note-text').textContent=getWelcomeNote();
   document.getElementById('welcome-note-wrap').style.display='block';
 }
+
 function getWelcomeNote(){
-  const name=PROFILE.name||'friend',g=PROFILE.gender,cat=PROFILE.bmiCat;
-  const notes={
-    'Underweight':g==='female'?`Welcome, ${name}! Every strong woman starts by simply showing up — and here you are. Your walks will nourish your body and spirit. Let's build strength, one step at a time.`:`Welcome, ${name}! The fact that you're here says everything about your drive. Walking will fuel your energy and build your strength. One powerful step at a time.`,
-    'Normal Weight':g==='female'?`Welcome, ${name}! You're in a great place and clearly take care of yourself. Walking daily will keep that beautiful balance going. I'm here to make every step meaningful!`:`Welcome, ${name}! You're in great shape and clearly disciplined. Walking sharpens the mind and maintains that solid foundation. Let's make every walk count.`,
-    'Overweight':g==='female'?`Welcome, ${name}! Every walk you take is an act of love for yourself. You don't need to be perfect — you just need to keep moving. I'm walking right beside you.`:`Welcome, ${name}! Choosing to walk is one of the most powerful decisions a man can make for himself. Every step is progress. I'm with you all the way.`,
-    'Obese':g==='female'?`Welcome, ${name}! Starting is the hardest part — and you've already done it. That takes genuine courage. Your walks don't need to be long or fast. They just need to happen. I'm here cheering you on every day.`:`Welcome, ${name}! Real strength is deciding to show up for yourself even when it's hard. You made that decision today. Together we'll make every walk count — one step at a time.`
-  };
-  return notes[cat]||`Welcome, ${name}! I'm so glad you're here. Every walk is a gift you give yourself.`;
+  var name=PROFILE.name||'friend',g=PROFILE.gender,cat=PROFILE.bmiCat;
+  var notes={'Underweight':g==='female'?'Welcome, '+name+'! Every strong woman starts by simply showing up. Your walks will nourish your body and spirit. Let\'s build strength together.':'Welcome, '+name+'! The fact that you\'re here says everything. Walking will fuel your energy and build your strength. One step at a time.','Normal Weight':g==='female'?'Welcome, '+name+'! You\'re in a great place. Walking daily keeps that beautiful balance going. I\'m here to make every step meaningful!':'Welcome, '+name+'! You\'re in great shape. Walking sharpens the mind and keeps that solid foundation strong. Let\'s make every walk count.','Overweight':g==='female'?'Welcome, '+name+'! Every walk is an act of love for yourself. Just keep moving. I\'m walking right beside you.':'Welcome, '+name+'! Choosing to walk is one of the most powerful decisions you can make. Every step is progress. I\'m with you.','Obese':g==='female'?'Welcome, '+name+'! Starting is the hardest part — and you\'ve already done it. Your walks don\'t need to be long. They just need to happen.':'Welcome, '+name+'! Real strength is deciding to show up for yourself. You made that decision today. Let\'s make every walk count.'};
+  return notes[cat]||'Welcome, '+name+'! Every walk is a gift you give yourself.';
 }
+
 function completeReg(){
   localStorage.setItem('walktalk_profile',JSON.stringify(PROFILE));
   document.getElementById('welcome-name').textContent='Hey '+PROFILE.name+'!';
@@ -541,25 +677,8 @@ function completeReg(){
   showScreen('setup-screen');
 }
 
-// ── SCREEN MANAGEMENT ──
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function showSetup(){showScreen('setup-screen');}
-function showDashboard(){renderDashboard();showScreen('dashboard-screen');}
-
-window.onload=()=>{
-  const saved=localStorage.getItem('walktalk_profile');
-  if(saved){try{const p=JSON.parse(saved);Object.assign(PROFILE,p);document.getElementById('welcome-name').textContent='Hey '+PROFILE.name+'!';document.getElementById('welcome-avatar').textContent=PROFILE.avatar||'🧑';document.getElementById('welcome-bmi-sub').textContent=PROFILE.bmi?'BMI '+PROFILE.bmi+' · '+PROFILE.bmiCat:"Ready for today's walk?";showScreen('setup-screen');}catch(e){showScreen('reg-screen');}}
-  else{showScreen('reg-screen');}
-};
-
-// ── SETUP ──
-function selectVoice(el){document.querySelectorAll('.voice-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');STATE.voice=el.dataset.voice;STATE.voiceGender=el.dataset.vgender;checkReady();}
-function selectMood(el){document.querySelectorAll('.mood-btn').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');STATE.mood=el.dataset.mood;checkReady();}
-function selectDur(el){document.querySelectorAll('.dur-btn').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');STATE.duration=parseInt(el.dataset.mins);checkReady();}
-function checkReady(){document.getElementById('start-btn').disabled=!(STATE.voice&&STATE.mood&&STATE.duration);}
-
-// ── SESSION START ──
-async function startSession(){
+// ════════ SESSION ════════
+function startSession(){
   showScreen('session-screen');
   document.getElementById('companion-name').textContent='With '+STATE.voice;
   document.getElementById('mood-tag').textContent='Feeling '+STATE.mood;
@@ -568,374 +687,505 @@ async function startSession(){
   hideAllCards();
   document.getElementById('chat').innerHTML='';
   STATE.messages=[];STATE.walkStarted=false;STATE.chatExchanges=0;
-  STATE.paused=false;STATE.inRest=false;
+  STATE.paused=false;STATE.inRest=false;STATE.isSpeaking=false;
   STATE.extensionWarningShown=false;STATE.extensionCount=0;
-  STATE.pauseCount=0;STATE.totalRestSeconds=0;
-  updateStats();
-  setOrb('bot');
-  const why=PROFILE.why.length?PROFILE.why.join(', '):'general wellness';
-  const energy=PROFILE.energy.length?PROFILE.energy.join(', '):'good conversation';
-  const bmiCtx=PROFILE.bmi?`My BMI is ${PROFILE.bmi} (${PROFILE.bmiCat}).`:'';
-  await sendToBot(`Hi! My name is ${PROFILE.name}. Gender: ${PROFILE.gender||'not specified'}. Age: ${PROFILE.age||'not specified'}. ${bmiCtx} I walk because: ${why}. I enjoy: ${energy}. Please greet me warmly with one short sentence, then ask me one question to start our conversation.`);
+  STATE.pauseCount=0;STATE.totalRestSeconds=0;STATE.stepCount=0;
+  STATE.lastBubbleType=null;
+  updateStats();setOrb('bot');
+  initStepCounter();
+  initMic(null); // pre-warm mic so first listen has zero permission delay
+  var why=PROFILE.why.length?PROFILE.why.join(', '):'general wellness';
+  var energy=PROFILE.energy.length?PROFILE.energy.join(', '):'good conversation';
+  var bmiCtx=PROFILE.bmi?'BMI '+PROFILE.bmi+' ('+PROFILE.bmiCat+').':'';
+  sendToBot('Hi! My name is '+PROFILE.name+'. Gender: '+(PROFILE.gender||'not specified')+'. Age: '+(PROFILE.age||'not specified')+'. '+bmiCtx+' Right now I am feeling '+STATE.mood+'. I walk because: '+why+'. I enjoy: '+energy+'. Please greet me warmly first, then in your very next sentence acknowledge that I am feeling '+STATE.mood+' today in a caring way, then ask me one question. Maximum 3 short sentences total.');
 }
 
-// ── WALK TIMER ──
+function initStepCounter(){
+  if(!window.DeviceMotionEvent)return;
+  if(typeof DeviceMotionEvent.requestPermission==='function'){DeviceMotionEvent.requestPermission().catch(function(){});}
+  window.addEventListener('devicemotion',function(e){
+    if(!STATE.walkStarted||STATE.paused||STATE.inRest)return;
+    var acc=e.accelerationIncludingGravity;if(!acc)return;
+    var mag=Math.sqrt(acc.x*acc.x+acc.y*acc.y+acc.z*acc.z);
+    if(STATE.lastAccel!==null&&Math.abs(mag-STATE.lastAccel)>3){STATE.stepCount++;document.getElementById('stat-steps').textContent=STATE.stepCount;}
+    STATE.lastAccel=mag;
+  });
+}
+
 function startWalkTimer(){
-  STATE.walkStarted=true;
-  STATE.totalSeconds=STATE.duration*60;
-  STATE.secondsLeft=STATE.totalSeconds;
-  STATE.extensionWarningShown=false;
-  hideAllCards();
+  STATE.walkStarted=true;STATE.totalSeconds=STATE.duration*60;STATE.secondsLeft=STATE.totalSeconds;
+  STATE.extensionWarningShown=false;hideAllCards();
   document.getElementById('timer-lbl').textContent='LEFT';
   updateTimerDisplay();
   clearInterval(STATE.timerInterval);
   STATE.timerInterval=setInterval(tickTimer,1000);
-  addBubble('bot',"Walk timer started! I'm right here with you — let's go! 🚶",STATE.voice);
-  setTimeout(()=>startAutoListen(),1500);
+  addBubble('system','🚶 Walk started! Timer is running.');
+  // Mic already warm from session start — begin listening right away
+  setTimeout(startAutoListen,300);
 }
 
 function tickTimer(){
   if(STATE.paused||STATE.inRest)return;
-  STATE.secondsLeft--;
-  updateTimerDisplay();
-  // 3-minute warning
-  if(STATE.secondsLeft===180&&!STATE.extensionWarningShown){
-    STATE.extensionWarningShown=true;
-    triggerExtensionPrompt();
-    return;
-  }
-  if(STATE.secondsLeft<=0){
-    clearInterval(STATE.timerInterval);
-    endSession();
-  }
+  STATE.secondsLeft--;updateTimerDisplay();
+  if(STATE.secondsLeft===180&&!STATE.extensionWarningShown){STATE.extensionWarningShown=true;triggerExtensionPrompt();return;}
+  if(STATE.secondsLeft<=0){clearInterval(STATE.timerInterval);endSession('Completed my walk');}
 }
 
 function updateTimerDisplay(){
-  const m=Math.floor(STATE.secondsLeft/60).toString().padStart(2,'0');
-  const s=(STATE.secondsLeft%60).toString().padStart(2,'0');
+  var m=Math.floor(STATE.secondsLeft/60).toString().padStart(2,'0');
+  var s=(STATE.secondsLeft%60).toString().padStart(2,'0');
   document.getElementById('timer').textContent=m+':'+s;
   document.getElementById('ring').style.strokeDashoffset=289*(1-STATE.secondsLeft/STATE.totalSeconds);
-  // Ring turns yellow at 3 min, red at 1 min
-  const ring=document.getElementById('ring');
+  var ring=document.getElementById('ring');
   if(STATE.secondsLeft<=60)ring.style.stroke='#EF4444';
   else if(STATE.secondsLeft<=180)ring.style.stroke='#FFC107';
   else ring.style.stroke='#FF8C42';
 }
 
-// ── EXTENSION FLOW ──
 function triggerExtensionPrompt(){
-  window.speechSynthesis.cancel();
-  if(STATE.recognition)STATE.recognition.stop();
-  STATE.recording=false;
-  hideAllCards();
+  stopAllAudio();stopListening();hideAllCards();
   document.getElementById('extend-card').style.display='block';
-  const msg=`Just 3 minutes left on your walk, ${PROFILE.name}! You've done so well today — would you like to extend for another ${STATE.duration} minutes and keep this energy going?`;
-  addBubble('bot',msg,STATE.voice);
+  // Speak the warning aloud so user is alerted while walking
+  var msg='Just 3 minutes left on your walk! You are doing brilliantly. Would you like to keep going for another round?';
+  addBubble('bot',msg,STATE.voice,true);
   speakText(msg,null);
-}
-
-function userWantsExtend(){
-  hideAllCards();
-  document.getElementById('safety-card').style.display='block';
-  const msg=`Fantastic spirit! Before we continue — quick check: how are you feeling right now? Any breathlessness, chest discomfort, or extreme fatigue? Be honest with me.`;
-  addBubble('bot',msg,STATE.voice);
-  speakText(msg,null);
-}
-function userDeclineExtend(){
-  hideAllCards();
-  const msg=`Absolutely — you've done wonderfully today, ${PROFILE.name}. Let's finish this last 3 minutes strong. You should be really proud of yourself!`;
-  addBubble('bot',msg,STATE.voice);
-  speakText(msg,()=>startAutoListen());
 }
 
 function safetyOk(){
-  hideAllCards();
-  STATE.extensionCount++;
-  STATE.totalSeconds+=STATE.duration*60;
-  STATE.secondsLeft+=STATE.duration*60;
-  STATE.extensionWarningShown=false;
-  updateStats();
-  updateTimerDisplay();
-  launchStars();
-  const msg=`That's the spirit! Timer extended by ${STATE.duration} minutes — let's keep this momentum going! You're absolutely crushing it today, ${PROFILE.name}! 🌟`;
-  addBubble('system','🌟 Walk extended by '+STATE.duration+' minutes! Keep going!');
-  addBubble('bot',msg,STATE.voice);
-  speakText(msg,()=>startAutoListen());
+  hideAllCards();STATE.extensionCount++;
+  STATE.totalSeconds+=STATE.duration*60;STATE.secondsLeft+=STATE.duration*60;
+  STATE.extensionWarningShown=false;updateStats();updateTimerDisplay();launchStars();
+  addBubble('system','🌟 Walk extended by '+STATE.duration+' minutes!');
+  var msg='Amazing! '+STATE.duration+' more minutes added. You are doing brilliantly today. Keep going!';
+  addBubble('bot',msg,STATE.voice,true);
+  speakText(msg,function(){setTimeout(startAutoListen,500);});
 }
 
 function safetyNeedRest(){
-  hideAllCards();
-  document.getElementById('rest-card').style.display='block';
-  STATE.inRest=true;
-  STATE.pauseCount++;
-  STATE.restStartTime=new Date();
+  hideAllCards();document.getElementById('rest-card').style.display='block';
+  STATE.inRest=true;STATE.pauseCount++;STATE.restStartTime=new Date();
+  stopAllAudio();stopListening();
+  setOrb('idle');document.getElementById('orb').classList.add('paused-state');
   updateStats();
-  window.speechSynthesis.cancel();
-  if(STATE.recognition)STATE.recognition.stop();
-  STATE.recording=false;
-  setOrb('idle');
-  document.getElementById('orb').classList.add('paused-state');
-  const msg=`Good call, ${PROFILE.name} — always listen to your body. The timer is paused. Find a spot to rest, take slow deep breaths, and have some water. There's absolutely no rush. I'll be right here when you're ready.`;
-  addBubble('bot',msg,STATE.voice);
-  speakText(msg,null);
-  // Track rest time
-  STATE.restInterval=setInterval(()=>{
-    if(STATE.restStartTime){
-      const secs=Math.floor((new Date()-STATE.restStartTime)/1000);
-      STATE.totalRestSeconds=secs;
-      updateStats();
-    }
+  STATE.restInterval=setInterval(function(){
+    if(STATE.restStartTime){STATE.totalRestSeconds=Math.floor((new Date()-STATE.restStartTime)/1000);updateStats();}
   },1000);
+  var msg='Good call. Timer is paused. Hydrate, breathe slowly. Take all the time you need.';
+  addBubble('bot',msg,STATE.voice,true);speakText(msg,null);
 }
 
 function resumeFromRest(){
-  clearInterval(STATE.restInterval);
-  const restMins=Math.ceil(STATE.totalRestSeconds/60);
-  STATE.inRest=false;
-  hideAllCards();
+  clearInterval(STATE.restInterval);STATE.inRest=false;hideAllCards();
   document.getElementById('orb').classList.remove('paused-state');
-  updateStats();
-  // Offer extension after rest
-  document.getElementById('extend-card').style.display='block';
-  const msg=`Welcome back, ${PROFILE.name}! I'm so glad you rested. You rested for about ${restMins} minute${restMins!==1?'s':''}. Would you like to extend your walk now, or shall we finish the remaining time?`;
-  addBubble('bot',msg,STATE.voice);
-  speakText(msg,null);
+  updateStats();document.getElementById('extend-card').style.display='block';
 }
 
-// ── STARS ANIMATION ──
-function launchStars(){
-  const overlay=document.getElementById('stars-overlay');
-  overlay.innerHTML='';
-  const emojis=['⭐','🌟','✨','💫','🔥','💪','🎉'];
-  for(let i=0;i<20;i++){
-    const star=document.createElement('div');
-    star.className='star';
-    star.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    star.style.left=Math.random()*100+'%';
-    star.style.animationDelay=Math.random()*1.5+'s';
-    star.style.fontSize=(16+Math.random()*16)+'px';
-    overlay.appendChild(star);
-  }
-  setTimeout(()=>overlay.innerHTML='',3500);
+// Varied pause check-in lines — picked at random so it never feels repetitive
+function getPauseMessage(){
+  var name=PROFILE.name||'';
+  var lines=[
+    (name?name+', ':'')+'hope you\'re doing okay — just take a moment to catch your breath. No rush at all, whenever you feel good just tap play and we\'ll pick this right back up.',
+    'All good, '+(name||'friend')+'? This is just a quick breather — if anything feels off, slow down and listen to your body. Tap play whenever you\'re ready.',
+    'Take your time'+(name?' , '+name:'')+'. A short pause is exactly what your body might need right now — just tap play when you\'re feeling recharged.',
+    (name?name+', ':'')+'perfectly fine to pause here. Breathe, relax your shoulders a bit, and whenever you\'re ready, just tap play and we\'ll get moving again.',
+    'No worries at all — pausing is smart. If you\'re feeling breathless or just want a moment, take it. I\'ll be right here when you tap play.'
+  ];
+  return lines[Math.floor(Math.random()*lines.length)];
 }
 
-// ── PAUSE ──
+// Varied resume welcome-back lines
+function getResumeMessage(){
+  var name=PROFILE.name||'';
+  var lines=[
+    'Okay, welcome back'+(name?', '+name:'')+'! That was a good little break — ready to pick things back up?',
+    'Ah, there you are'+(name?', '+name:'')+'! Feeling recharged? Let\'s get moving again.',
+    'Good to have you back'+(name?', '+name:'')+'. Hope that break helped — shall we continue?',
+    'And we\'re back'+(name?', '+name:'')+'! Nice pace so far — let\'s keep the momentum going.',
+    'Welcome back'+(name?', '+name:'')+'! That pause was well earned — ready to carry on?'
+  ];
+  return lines[Math.floor(Math.random()*lines.length)];
+}
+
 function togglePause(){
   if(STATE.inRest)return;
   STATE.paused=!STATE.paused;
-  const btn=document.getElementById('pause-btn');
-  const orb=document.getElementById('orb');
+  var btn=document.getElementById('pause-btn');
   if(STATE.paused){
-    STATE.pauseCount++;
-    updateStats();
-    btn.textContent='▶ Resume Walk';btn.classList.add('paused');
-    orb.classList.add('paused-state');
-    window.speechSynthesis.cancel();
-    if(STATE.recognition)STATE.recognition.stop();
-    STATE.recording=false;
-    document.getElementById('orb-hint').textContent='Walk paused — tap Resume to continue';
+    STATE.pauseCount++;updateStats();
+    btn.textContent='▶';btn.classList.add('paused');btn.title='Resume Walk';
+    document.getElementById('orb').classList.add('paused-state');
+    stopAllAudio();stopListening();
+    document.getElementById('orb-hint').textContent='Paused — tap ▶ to continue';
+    var pauseMsg=getPauseMessage();
+    addBubble('bot',pauseMsg,STATE.voice,true);
+    speakText(pauseMsg,null);
   }else{
-    btn.textContent='⏸ Pause Walk';btn.classList.remove('paused');
-    orb.classList.remove('paused-state');
-    setTimeout(()=>startAutoListen(),500);
+    btn.textContent='⏸';btn.classList.remove('paused');btn.title='Pause Walk';
+    document.getElementById('orb').classList.remove('paused-state');
+    // Speak a warm welcome-back line, THEN resume listening — conversation restarts properly
+    var resumeMsg=getResumeMessage();
+    STATE.isSpeaking=true;setOrb('bot');
+    addBubble('bot',resumeMsg,STATE.voice,true);
+    speakText(resumeMsg,function(){
+      STATE.isSpeaking=false;
+      if(!STATE.paused&&!STATE.inRest)setTimeout(startAutoListen,400);
+    });
   }
 }
 
 function updateStats(){
   document.getElementById('stat-pauses').textContent=STATE.pauseCount;
-  const restMins=Math.floor(STATE.totalRestSeconds/60);
-  document.getElementById('stat-rest').textContent=restMins+'m';
-  document.getElementById('stat-extensions').textContent=STATE.extensionCount;
+  document.getElementById('stat-rest').textContent=Math.floor(STATE.totalRestSeconds/60)+'m';
+  document.getElementById('stat-ext').textContent=STATE.extensionCount;
 }
 
-// ── AUTO CONVERSATION ──
+function openEndModal(){document.getElementById('end-modal').classList.add('open');}
+function pauseFromModal(){
+  document.getElementById('end-modal').classList.remove('open');
+  if(!STATE.paused){
+    STATE.paused=true;STATE.pauseCount++;updateStats();stopAllAudio();stopListening();
+    var btn=document.getElementById('pause-btn');
+    btn.textContent='▶';btn.classList.add('paused');btn.title='Resume Walk';
+    document.getElementById('orb').classList.add('paused-state');
+    document.getElementById('orb-hint').textContent='Paused — tap ▶ to continue';
+    var pauseMsg=getPauseMessage();
+    addBubble('bot',pauseMsg,STATE.voice,true);
+    speakText(pauseMsg,null);
+  }
+}
+function cancelFromModal(){
+  var reason=document.getElementById('end-reason').value||'Other';
+  document.getElementById('end-modal').classList.remove('open');
+  endSession(reason);
+}
+
+// ════════ SILENCE TIMER ════════
+function resetSilenceTimer(){
+  clearTimeout(STATE.silenceTimer);
+  if(!STATE.walkStarted||STATE.paused||STATE.inRest||STATE.isSpeaking)return;
+  STATE.silenceTimer=setTimeout(function(){
+    if(!STATE.walkStarted||STATE.paused||STATE.inRest||STATE.isSpeaking)return;
+    var uname=PROFILE.name?PROFILE.name+', are':'Are';
+    var msg=uname+' you still there? Take your time — I\'m right here with you whenever you\'re ready.';
+    addBubble('bot',msg,STATE.voice,true);
+    speakText(msg,function(){setTimeout(startAutoListen,500);});
+  },10000);
+}
+
+// ════════ MIC INIT (called once when session starts) ════════
+function initMic(onReady){
+  if(STATE.mediaStream){if(onReady)onReady();return;}
+  navigator.mediaDevices.getUserMedia({audio:true,video:false})
+  .then(function(stream){
+    STATE.mediaStream=stream;
+    STATE.audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    STATE.analyserNode=STATE.audioCtx.createAnalyser();
+    STATE.analyserNode.fftSize=512;
+    var src=STATE.audioCtx.createMediaStreamSource(stream);
+    src.connect(STATE.analyserNode);
+    console.log('Mic ready');
+    if(onReady)onReady();
+  }).catch(function(err){
+    console.error('Mic init error:',err);
+    document.getElementById('orb-hint').textContent='Microphone access needed';
+  });
+}
+
+// ════════ AUTO LISTEN (Groq Whisper via MediaRecorder) ════════
 function startAutoListen(){
-  if(STATE.paused||STATE.inRest||STATE.recording)return;
-  if(!('webkitSpeechRecognition'in window)&&!('SpeechRecognition'in window))return;
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  STATE.recognition=new SR();
-  STATE.recognition.lang='en-US';
-  STATE.recognition.continuous=false;
-  STATE.recognition.interimResults=false;
-  STATE.recognition.onresult=(e)=>{
-    const text=e.results[0][0].transcript;
-    if(text.trim()){addBubble('user',text,PROFILE.name||'You');sendToBot(text);}
-  };
-  STATE.recognition.onerror=()=>{STATE.recording=false;setOrb('idle');if(!STATE.paused&&!STATE.inRest&&STATE.walkStarted)setTimeout(startAutoListen,2000);};
-  STATE.recognition.onend=()=>{
+  if(STATE.paused||STATE.inRest||STATE.recording||STATE.isSpeaking)return;
+  if(!STATE.mediaStream){
+    initMic(function(){setTimeout(startAutoListen,300);});
+    return;
+  }
+  var hintEl=document.getElementById('orb-hint');
+  var mimeType=MediaRecorder.isTypeSupported('audio/webm;codecs=opus')?'audio/webm;codecs=opus':
+               MediaRecorder.isTypeSupported('audio/webm')?'audio/webm':'';
+  var recOpts=mimeType?{mimeType:mimeType}:{};
+  var recorder=new MediaRecorder(STATE.mediaStream,recOpts);
+  STATE.recorder=recorder;
+  var chunks=[];
+  var hasSpoken=false;
+  var silenceStart=null;
+  var silenceCheckInterval=null;
+  var analyserData=new Uint8Array(STATE.analyserNode.frequencyBinCount);
+
+  recorder.ondataavailable=function(e){if(e.data&&e.data.size>0)chunks.push(e.data);};
+
+  recorder.onstop=function(){
+    clearInterval(silenceCheckInterval);
     STATE.recording=false;
-    const orb=document.getElementById('orb');
-    if(!STATE.paused&&!STATE.inRest&&STATE.walkStarted&&!orb.classList.contains('bot-speaking'))setTimeout(startAutoListen,1000);
+    document.getElementById('mic-btn').classList.remove('recording');
+    if(!hasSpoken||!chunks.length){
+      if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking)setTimeout(startAutoListen,300);
+      return;
+    }
+    var blob=new Blob(chunks,{type:mimeType||'audio/webm'});
+    hintEl.textContent='Thinking...';
+    var fd=new FormData();
+    fd.append('audio',blob,'speech.webm');
+    fetch('/transcribe',{method:'POST',body:fd})
+      .then(function(r){return r.json();})
+      .then(function(data){
+        var text=(data.text||'').trim();
+        if(text){
+          addBubble('user',text,PROFILE.name||'You');
+          sendToBot(text);
+        }else{
+          hintEl.textContent='Didn\'t catch that — try again...';
+          if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking)setTimeout(startAutoListen,400);
+        }
+      })
+      .catch(function(err){
+        console.error('Transcribe error:',err);
+        if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking)setTimeout(startAutoListen,400);
+      });
   };
-  STATE.recognition.start();
+
+  // Timeslice: collect audio every 250ms so data flows immediately
+  recorder.start(250);
   STATE.recording=true;
   setOrb('user');
-  document.getElementById('orb-hint').textContent='Listening... speak naturally';
-}
-function toggleMic(){
-  if(STATE.recording){if(STATE.recognition)STATE.recognition.stop();STATE.recording=false;setOrb('idle');}
-  else{startAutoListen();}
+  hintEl.textContent='Listening...';
+  document.getElementById('mic-btn').classList.add('recording');
+  resetSilenceTimer();
+
+  // Safety timeout: if user never speaks after 8s, abort silently — never send silence to Groq
+  var maxRecordTimeout=setTimeout(function(){
+    if(!hasSpoken&&recorder.state==='recording'){
+      recorder.stop(); // onstop will see hasSpoken=false and restart cleanly
+    }
+  },8000);
+
+  // Clear max timeout if user does speak (silence detection will handle normal stop)
+  var origStop=recorder.stop.bind(recorder);
+  recorder.stop=function(){clearTimeout(maxRecordTimeout);origStop();};
+
+  // Voice-activity detection: stop after 900ms silence post-speech
+  silenceCheckInterval=setInterval(function(){
+    STATE.analyserNode.getByteTimeDomainData(analyserData);
+    var sum=0;
+    for(var i=0;i<analyserData.length;i++){var v=(analyserData[i]-128)/128;sum+=v*v;}
+    var rms=Math.sqrt(sum/analyserData.length);
+    var speaking=rms>0.015;
+    if(speaking){hasSpoken=true;silenceStart=null;}
+    else if(hasSpoken){
+      if(silenceStart===null)silenceStart=Date.now();
+      else if(Date.now()-silenceStart>900){
+        if(recorder.state==='recording')recorder.stop();
+      }
+    }
+  },100);
 }
 
-// ── BOT ──
-async function sendToBot(userText){
+function stopListening(){
+  clearTimeout(STATE.silenceTimer);
+  if(STATE.recorder&&STATE.recorder.state==='recording'){try{STATE.recorder.stop();}catch(e){}}
+  // Keep STATE.mediaStream alive — mic stays warm between turns for instant restart
+  STATE.recording=false;
+  document.getElementById('mic-btn').classList.remove('recording');
+}
+
+function releaseMic(){
+  // Call only on full session end to free microphone
+  if(STATE.mediaStream){try{STATE.mediaStream.getTracks().forEach(function(t){t.stop();});}catch(e){}}
+  if(STATE.audioCtx){try{STATE.audioCtx.close();}catch(e){}}
+  STATE.mediaStream=null;STATE.audioCtx=null;STATE.analyserNode=null;
+}
+
+function toggleMic(){
+  if(STATE.recording){stopListening();setOrb('idle');}else{startAutoListen();}
+}
+
+// ════════ BOT ════════
+function sendToBot(userText){
+  clearTimeout(STATE.silenceTimer);stopListening();
   STATE.messages.push({role:'user',content:userText});
-  setOrb('bot');
-  const typing=addTyping();
-  try{
-    const res=await fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:STATE.messages,mood:STATE.mood,voiceName:STATE.voice,duration:STATE.duration,userName:PROFILE.name,gender:PROFILE.gender,language:'en',bmi:PROFILE.bmi,bmiCat:PROFILE.bmiCat,walkStarted:STATE.walkStarted,chatExchanges:STATE.chatExchanges})});
-    const data=await res.json();
+  setOrb('bot');STATE.isSpeaking=true;
+  var typing=addTyping();
+
+  fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({messages:STATE.messages,mood:STATE.mood,voiceName:STATE.voice,duration:STATE.duration,userName:PROFILE.name,gender:PROFILE.gender,language:'en',bmi:PROFILE.bmi,bmiCat:PROFILE.bmiCat,walkStarted:STATE.walkStarted,chatExchanges:STATE.chatExchanges,why:PROFILE.why,energy:PROFILE.energy,isEndOfWalk:false})})
+  .then(function(r){return r.json();})
+  .then(function(data){
     typing.remove();
-    const reply=data.reply||data.error||'Sorry, something went wrong.';
+    var reply=data.reply||data.error||'Sorry, something went wrong.';
     STATE.messages.push({role:'assistant',content:reply});
     STATE.chatExchanges++;
-    addBubble('bot',reply,STATE.voice);
-    speakText(reply,()=>{
+    addBubble('bot',reply,STATE.voice,true);
+
+    // Single TTS call — speakText handles audio + calls afterSpeak when done
+    speakText(reply,function(){STATE.isSpeaking=false;afterSpeak();});
+
+    function afterSpeak(){
       if(!STATE.walkStarted&&STATE.chatExchanges>=3){
         document.getElementById('prewalk-card').style.display='block';
-        // Still listen even while showing prewalk card
-        setTimeout(startAutoListen,500);
-      } else if(!STATE.paused&&!STATE.inRest){
-        // Auto-listen after EVERY bot response — pre-walk and during walk
-        setTimeout(startAutoListen,500);
+        var pname=PROFILE.name?PROFILE.name+', ':'';
+        var readyMsg=pname+'have you laced up and ready to head out? Once you are set, just tap the Start My Walk button below and I will begin timing us!';
+        addBubble('bot',readyMsg,STATE.voice,true);
+        STATE.isSpeaking=true;
+        speakText(readyMsg,function(){STATE.isSpeaking=false;});
+        return;
       }
-    });
-  }catch(e){typing.remove();addBubble('bot','Connection issue — is your server running?',STATE.voice);setOrb('idle');}
+      if(!STATE.paused&&!STATE.inRest){setTimeout(startAutoListen,400);}
+    }
+  })
+  .catch(function(){
+    typing.remove();STATE.isSpeaking=false;
+    addBubble('bot','Connection issue — please check the server.',STATE.voice,true);
+    setOrb('idle');setTimeout(startAutoListen,2000);
+  });
 }
 
-// ── SPEECH ──
+// ════════ TTS ════════
 function stripEmojis(t){return t.replace(/[\u{1F000}-\u{1FFFF}]/gu,'').replace(/[\u{2600}-\u{27BF}]/gu,'').replace(/\s+/g,' ').trim();}
 
-// ── EDGE TTS — 4 distinct Microsoft neural voices via server ──
-// No user sign-in. No downloads. No API key. Completely free.
-// Aryan = en-US-GuyNeural   (deep, calm, authoritative male)
-// Max   = en-US-TonyNeural  (energetic, younger male)
-// Priya = en-IN-NeerjaNeural (warm Indian female)
-// Zara  = en-US-JennyNeural  (bright, expressive female)
+function stopAllAudio(){
+  if(currentAudio){try{currentAudio.pause();currentAudio.src='';}catch(e){}currentAudio=null;}
+  window.speechSynthesis.cancel();STATE.isSpeaking=false;
+}
 
-let currentAudio = null;
-
-async function speakText(text, onDone) {
-  // Stop any currently playing audio
-  if (currentAudio) { try { currentAudio.pause(); currentAudio.src = ''; } catch(e){} currentAudio = null; }
-  window.speechSynthesis.cancel();
-  const clean = stripEmojis(text);
-  if (!clean.trim()) { setOrb('idle'); if (onDone) onDone(); return; }
-
-  try {
-    const res = await fetch('/tts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: clean, voice: STATE.voice })
-    });
-    if (!res.ok) throw new Error('TTS server error: ' + res.status);
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const audio = new Audio(url);
-    currentAudio = audio;
-    audio.onended = () => { currentAudio = null; URL.revokeObjectURL(url); setOrb('idle'); if (onDone) onDone(); };
-    audio.onerror = () => { currentAudio = null; URL.revokeObjectURL(url); setOrb('idle'); if (onDone) onDone(); };
+function speakText(text,onDone){
+  stopAllAudio();
+  var clean=stripEmojis(text);
+  if(!clean.trim()){STATE.isSpeaking=false;setOrb('idle');if(onDone)onDone();return;}
+  STATE.isSpeaking=true;setOrb('bot');
+  fetch('/tts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:clean,voice:STATE.voice})})
+  .then(function(r){if(!r.ok)throw new Error('TTS '+r.status);return r.blob();})
+  .then(function(blob){
+    var url=URL.createObjectURL(blob);
+    var audio=new Audio(url);currentAudio=audio;
+    audio.onended=function(){currentAudio=null;URL.revokeObjectURL(url);STATE.isSpeaking=false;setOrb('idle');if(onDone)onDone();};
+    audio.onerror=function(){currentAudio=null;URL.revokeObjectURL(url);STATE.isSpeaking=false;setOrb('idle');if(onDone)onDone();};
     audio.play();
-  } catch (e) {
-    console.warn('Edge TTS failed, using browser fallback:', e.message);
-    // Browser TTS fallback with pitch/rate per persona
-    const pitchMap = { Aryan:0.80, Max:1.10, Priya:1.00, Zara:1.25 };
-    const rateMap  = { Aryan:0.85, Max:1.10, Priya:0.88, Zara:1.05 };
-    const utter = new SpeechSynthesisUtterance(clean);
-    const voices = window.speechSynthesis.getVoices();
-    const pool = voices.filter(v => v.lang.startsWith('en'));
-    const use = pool.length ? pool : voices;
-    if (STATE.voiceGender === 'female') {
-      utter.voice = use.find(v => /zira|hazel|susan|karen|samantha|victoria|moira|fiona/i.test(v.name)) || use[0];
-    } else {
-      utter.voice = use.find(v => /david|mark|daniel|george|james|alex/i.test(v.name)) || use[0];
-    }
-    utter.pitch = pitchMap[STATE.voice] || 1.0;
-    utter.rate  = rateMap[STATE.voice]  || 0.95;
-    utter.volume = 1;
-    utter.onend  = () => { setOrb('idle'); if (onDone) onDone(); };
-    utter.onerror = () => { setOrb('idle'); if (onDone) onDone(); };
-    setTimeout(() => window.speechSynthesis.speak(utter), 100);
+  })
+  .catch(function(e){
+    console.warn('TTS failed:',e.message);
+    STATE.isSpeaking=false;setOrb('idle');if(onDone)onDone();
+  });
+}
+
+// ════════ END SESSION ════════
+function endSession(reason){
+  clearInterval(STATE.timerInterval);clearInterval(STATE.restInterval);clearTimeout(STATE.silenceTimer);
+  stopAllAudio();stopListening();releaseMic();
+  var mins=STATE.walkStarted?Math.ceil((STATE.totalSeconds-STATE.secondsLeft)/60)||STATE.duration:0;
+  if(mins>0)saveWalk(mins,STATE.mood,STATE.voice,STATE.pauseCount,Math.floor(STATE.totalRestSeconds/60),STATE.extensionCount,STATE.stepCount,reason||'Other');
+  // If walk was active, get farewell summary from AI before going to setup
+  if(STATE.walkStarted&&mins>0){
+    STATE.messages.push({role:'user',content:'The walk is now finished. Please give me a warm summary and goodbye.'});
+    setOrb('bot');
+    fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:STATE.messages,mood:STATE.mood,voiceName:STATE.voice,duration:STATE.duration,userName:PROFILE.name,gender:PROFILE.gender,language:'en',bmi:PROFILE.bmi,bmiCat:PROFILE.bmiCat,walkStarted:true,chatExchanges:STATE.chatExchanges,why:PROFILE.why,energy:PROFILE.energy,isEndOfWalk:true})})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var reply=data.reply||'Great walk today! You should be really proud of yourself. See you next time!';
+      addBubble('bot',reply,STATE.voice,true);
+      speakText(reply,function(){
+        setTimeout(function(){showScreen('setup-screen');},1500);
+      });
+    })
+    .catch(function(){showScreen('setup-screen');});
+  } else {
+    showScreen('setup-screen');
   }
 }
 
-// ── SESSION END ──
-function confirmEnd(){
-  if(STATE.walkStarted){if(confirm('End your walk? Progress will be saved.'))endSession();}
-  else{if(confirm('End this session?')){clearInterval(STATE.timerInterval);clearInterval(STATE.restInterval);window.speechSynthesis.cancel();if(STATE.recognition)STATE.recognition.stop();showScreen('setup-screen');}}
-}
-function endSession(){
-  clearInterval(STATE.timerInterval);clearInterval(STATE.restInterval);
-  window.speechSynthesis.cancel();if(STATE.recognition)STATE.recognition.stop();STATE.recording=false;
-  if(STATE.walkStarted){
-    const mins=Math.ceil((STATE.totalSeconds-STATE.secondsLeft)/60)||STATE.duration;
-    saveWalk(mins,STATE.mood,STATE.voice,STATE.pauseCount,Math.floor(STATE.totalRestSeconds/60),STATE.extensionCount);
+// ════════ STARS ════════
+function launchStars(){
+  var overlay=document.getElementById('stars-overlay');overlay.innerHTML='';
+  var emojis=['⭐','🌟','✨','💫','🔥','💪','🎉'];
+  for(var i=0;i<20;i++){
+    var s=document.createElement('div');s.className='star';
+    s.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+    s.style.left=Math.random()*100+'%';s.style.animationDelay=Math.random()*1.5+'s';
+    s.style.fontSize=(16+Math.random()*16)+'px';overlay.appendChild(s);
   }
-  showScreen('setup-screen');
+  setTimeout(function(){overlay.innerHTML='';},3500);
 }
 
-// ── HELPERS ──
-function hideAllCards(){
-  ['prewalk-card','extend-card','safety-card','rest-card'].forEach(id=>document.getElementById(id).style.display='none');
-}
-function setOrb(mode){
-  const orb=document.getElementById('orb'),hint=document.getElementById('orb-hint');
-  orb.classList.remove('bot-speaking','user-speaking','paused-state');
-  if(mode==='bot'){orb.classList.add('bot-speaking');hint.textContent=STATE.voice+' is speaking...';}
-  else if(mode==='user'){orb.classList.add('user-speaking');hint.textContent='Listening... speak naturally';}
-  else{hint.textContent=STATE.walkStarted?'Tap mic or speak':'Companion will speak first';}
-}
-function addBubble(type,text,sender){
-  const chat=document.getElementById('chat');
-  const div=document.createElement('div');
-  div.className='bubble '+type;
-  if(type!=='system')div.innerHTML='<div class="sender">'+(sender||'')+'</div>'+text;
-  else div.textContent=text;
-  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;return div;
-}
-function addTyping(){
-  const chat=document.getElementById('chat'),div=document.createElement('div');
-  div.className='bubble bot';
-  div.innerHTML='<div class="sender">'+(STATE.voice||'')+'</div><div class="typing"><span></span><span></span><span></span></div>';
-  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;return div;
-}
-
-// ── DATA + DASHBOARD ──
-function saveWalk(mins,mood,voice,pauses,restMins,extensions){
-  const walks=JSON.parse(localStorage.getItem('walktalk_walks')||'[]');
-  walks.unshift({date:new Date().toISOString(),mins,mood,voice,pauses:pauses||0,restMins:restMins||0,extensions:extensions||0});
+// ════════ DATA & DASHBOARD ════════
+function saveWalk(mins,mood,voice,pauses,restMins,extensions,steps,reason){
+  var walks=JSON.parse(localStorage.getItem('walktalk_walks')||'[]');
+  walks.unshift({date:new Date().toISOString(),mins:mins,mood:mood,voice:voice,pauses:pauses||0,restMins:restMins||0,extensions:extensions||0,steps:steps||0,reason:reason||''});
   if(walks.length>100)walks.pop();
   localStorage.setItem('walktalk_walks',JSON.stringify(walks));
 }
+
 function renderDashboard(){
-  const walks=JSON.parse(localStorage.getItem('walktalk_walks')||'[]');
-  const totalMins=walks.reduce((s,w)=>s+(w.mins||0),0);
-  const thisWeek=walks.filter(w=>(new Date()-new Date(w.date))/(864e5)<=7).length;
-  const totalExt=walks.reduce((s,w)=>s+(w.extensions||0),0);
-  const totalRest=walks.reduce((s,w)=>s+(w.restMins||0),0);
-  document.getElementById('stat-cards').innerHTML=`
-    <div class="stat-card"><div class="sv">${walks.length}</div><div class="sk">Total Walks</div></div>
-    <div class="stat-card"><div class="sv">${totalMins}</div><div class="sk">Total Mins</div></div>
-    <div class="stat-card"><div class="sv">${thisWeek}</div><div class="sk">This Week</div></div>
-    <div class="stat-card"><div class="sv">${walks.length?Math.round(totalMins/walks.length):0}</div><div class="sk">Avg Mins</div></div>
-    <div class="stat-card"><div class="sv">${totalExt}</div><div class="sk">Extensions</div></div>
-    <div class="stat-card"><div class="sv">${totalRest}m</div><div class="sk">Total Rest</div></div>`;
-  if(!walks.length){document.getElementById('walk-list').innerHTML='<div class="empty-dash">No walks yet — start your first walk!</div>';return;}
-  document.getElementById('walk-list').innerHTML=walks.slice(0,30).map(w=>{
-    const d=new Date(w.date);
-    let badges=`<span class="badge mood-${w.mood}">${w.mood||'Walk'}</span>`;
-    if(w.pauses>0)badges+=`<span class="badge badge-pause">⏸ ${w.pauses} pause${w.pauses>1?'s':''}</span>`;
-    if(w.restMins>0)badges+=`<span class="badge badge-rest">💜 ${w.restMins}m rest</span>`;
-    if(w.extensions>0)badges+=`<span class="badge badge-extended">🌟 extended ${w.extensions}x</span>`;
-    return`<div class="walk-item">
-      <div class="walk-item-top">
-        <div><div class="wi-date">${d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})} · ${d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div><div class="wi-detail">With ${w.voice||'companion'}</div></div>
-        <div><div class="wi-mins">${w.mins}</div><div class="wi-mins-label">mins</div></div>
-      </div>
-      <div class="walk-item-bottom">${badges}</div>
-    </div>`;
+  var walks=JSON.parse(localStorage.getItem('walktalk_walks')||'[]');
+  var totalMins=walks.reduce(function(s,w){return s+(w.mins||0);},0);
+  var thisWeek=walks.filter(function(w){return (new Date()-new Date(w.date))/(864e5)<=7;}).length;
+  var totalSteps=walks.reduce(function(s,w){return s+(w.steps||0);},0);
+  var totalExt=walks.reduce(function(s,w){return s+(w.extensions||0);},0);
+  document.getElementById('stat-cards').innerHTML='<div class="stat-card"><div class="sv">'+walks.length+'</div><div class="sk">Total Walks</div></div><div class="stat-card"><div class="sv">'+totalMins+'</div><div class="sk">Total Mins</div></div><div class="stat-card"><div class="sv">'+thisWeek+'</div><div class="sk">This Week</div></div><div class="stat-card"><div class="sv">'+(walks.length?Math.round(totalMins/walks.length):0)+'</div><div class="sk">Avg Mins</div></div><div class="stat-card"><div class="sv">'+totalSteps.toLocaleString()+'</div><div class="sk">Total Steps</div></div><div class="stat-card"><div class="sv">'+totalExt+'</div><div class="sk">Extensions</div></div>';
+  
+  // ── BEST WALK TROPHY ──
+  var bwEl=document.getElementById('best-walk-block');
+  if(!walks.length){
+    bwEl.innerHTML='<div class="best-walk-empty">🏆 Complete your first walk to earn your trophy!</div>';
+    document.getElementById('walk-list').innerHTML='<div class="empty-dash">No walks yet \u2014 start your first walk!</div>';
+    return;
+  }
+  var best=walks.reduce(function(b,w){
+    if((w.mins||0)>(b.mins||0))return w;
+    if((w.mins||0)===(b.mins||0)&&(w.steps||0)>(b.steps||0))return w;
+    return b;
+  },walks[0]);
+  var bd=new Date(best.date);
+  var bdStr=bd.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  var btStr=bd.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  var bbadges='';
+  if(best.mood)bbadges+='<span class="badge mood-'+best.mood+'">'+best.mood+'</span>';
+  if(best.steps>0)bbadges+='<span class="badge badge-pause">👟 '+best.steps.toLocaleString()+' steps</span>';
+  if(best.pauses>0)bbadges+='<span class="badge badge-pause">⏸ '+best.pauses+' pause'+(best.pauses>1?'s':'')+'</span>';
+  if(best.restMins>0)bbadges+='<span class="badge badge-rest">💜 '+best.restMins+'m rest</span>';
+  if(best.extensions>0)bbadges+='<span class="badge badge-extended">🌟 +'+best.extensions+' ext</span>';
+  bwEl.innerHTML='<div class="best-walk-block"><div class="bwb-title">🏆 Your Best Walk Ever</div><span class="bwb-trophy">🥇</span><div class="bwb-date">'+bdStr+'</div><div class="bwb-time">Started at '+btStr+'</div><div class="bwb-stats"><div class="bwb-stat"><div class="bwb-sv">'+best.mins+'</div><div class="bwb-sk">Minutes</div></div><div class="bwb-stat"><div class="bwb-sv">'+(best.steps||0).toLocaleString()+'</div><div class="bwb-sk">Steps</div></div><div class="bwb-stat"><div class="bwb-sv">'+(best.extensions||0)+'</div><div class="bwb-sk">Extensions</div></div></div>'+(bbadges?'<div class="bwb-badges">'+bbadges+'</div>':'')+'<div class="bwb-companion">With '+(best.voice||'your companion')+'</div></div>';
+
+  document.getElementById('walk-list').innerHTML=walks.slice(0,30).map(function(w){
+    var d=new Date(w.date);
+    var badges='<span class="badge mood-'+w.mood+'">'+w.mood+'</span>';
+    if(w.steps>0)badges+='<span class="badge badge-pause">👟 '+w.steps+' steps</span>';
+    if(w.pauses>0)badges+='<span class="badge badge-pause">⏸ '+w.pauses+' pause'+(w.pauses>1?'s':'')+'</span>';
+    if(w.restMins>0)badges+='<span class="badge badge-rest">💜 '+w.restMins+'m rest</span>';
+    if(w.extensions>0)badges+='<span class="badge badge-extended">🌟 +'+w.extensions+' ext</span>';
+    if(w.reason&&w.reason!=='Completed my walk')badges+='<span class="badge badge-reason">📝 '+w.reason+'</span>';
+    return '<div class="walk-item"><div class="walk-item-top"><div><div class="wi-date">'+d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+'</div><div class="wi-detail">With '+(w.voice||'companion')+'</div></div><div><div class="wi-mins">'+w.mins+'</div><div class="wi-mins-label">mins</div></div></div><div class="walk-item-bottom">'+badges+'</div></div>';
   }).join('');
+}
+
+// ════════ UI HELPERS ════════
+function hideAllCards(){['prewalk-card','extend-card','safety-card','rest-card'].forEach(function(id){document.getElementById(id).style.display='none';});}
+
+function setOrb(mode){
+  var orb=document.getElementById('orb'),hint=document.getElementById('orb-hint');
+  orb.classList.remove('bot-speaking','user-speaking');
+  if(mode==='bot'){orb.classList.add('bot-speaking');hint.textContent=STATE.voice+' is speaking...';}
+  else if(mode==='user'){orb.classList.add('user-speaking');hint.textContent='Listening...';}
+  else{hint.textContent=STATE.walkStarted?'Speak naturally':'Companion will speak first';}
+}
+
+function addBubble(type,text,sender,showSender){
+  var chat=document.getElementById('chat');
+  var div=document.createElement('div');
+  div.className='bubble '+type;
+  if(type==='system'){div.textContent=text;}
+  else{
+    var senderDiv=document.createElement('div');senderDiv.className='sender';
+    senderDiv.textContent=type==='bot'?(STATE.voice||''):(PROFILE.name||'You');
+    if(showSender&&STATE.lastBubbleType!==type)div.classList.add('show-sender');
+    STATE.lastBubbleType=type;
+    div.appendChild(senderDiv);div.appendChild(document.createTextNode(text));
+  }
+  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;return div;
+}
+
+function addTyping(){
+  var chat=document.getElementById('chat');
+  var div=document.createElement('div');div.className='bubble bot show-sender';
+  div.innerHTML='<div class="sender">'+(STATE.voice||'')+'</div><div class="typing"><span></span><span></span><span></span></div>';
+  chat.appendChild(div);chat.scrollTop=chat.scrollHeight;return div;
 }
 </script>
 </body>
