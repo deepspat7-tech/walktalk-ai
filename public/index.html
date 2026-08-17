@@ -382,6 +382,8 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 
 <!-- SESSION SCREEN -->
 <div id="session-screen" class="screen">
+  <!-- DEBUG BAR — shows speech recognition status live -->
+  <div id="debug-bar" style="background:rgba(255,100,0,.85);color:#fff;font-size:11px;padding:4px 10px;text-align:center;display:block;word-break:break-all">Starting...</div>
   <div class="session-top">
     <div class="session-info">
       <div class="sname" id="companion-name">With Aryan</div>
@@ -935,9 +937,18 @@ function startAutoListen(){
     }
   };
 
+
+
+  function dbg(msg){
+    var d=document.getElementById('debug-bar');
+    if(d)d.textContent=new Date().toLocaleTimeString()+': '+msg;
+    console.log('SR DEBUG:',msg);
+  }
+
   STATE.recognition.onerror=function(e){
     clearTimeout(speechEndTimer);finalTranscript='';
     STATE.recording=false;setOrb(STATE.isSpeaking?'bot':'idle');
+    dbg('ERROR: '+e.error);
     if(e.error==='not-allowed'){
       if(hintEl)hintEl.textContent='Microphone permission needed';
       return;
@@ -946,7 +957,36 @@ function startAutoListen(){
     if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking)setTimeout(startAutoListen,1200);
   };
 
+  STATE.recognition.onstart=function(){
+    dbg('SR started OK');
+  };
+
+  STATE.recognition.onresult=function(e){
+    clearTimeout(STATE.silenceTimer);
+    clearTimeout(speechEndTimer);
+    var interim='',final='';
+    for(var i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal){finalTranscript+=e.results[i][0].transcript+' ';}
+      else{interim+=e.results[i][0].transcript;}
+    }
+    dbg('Heard: '+(interim||finalTranscript).slice(0,60));
+    if(hintEl)hintEl.textContent=interim?interim:'Listening...';
+    if(finalTranscript.trim()){
+      speechEndTimer=setTimeout(function(){
+        var text=finalTranscript.trim();
+        finalTranscript='';
+        if(text){
+          dbg('Sending: '+text.slice(0,40));
+          STATE.recognition.stop();
+          addBubble('user',text,PROFILE.name||'You');
+          sendToBot(text);
+        }
+      },1100);
+    }
+  };
+
   STATE.recognition.onend=function(){
+    dbg('SR ended. recording='+STATE.recording+' speaking='+STATE.isSpeaking+' paused='+STATE.paused);
     clearTimeout(speechEndTimer);
     if(finalTranscript.trim()){
       var text=finalTranscript.trim();finalTranscript='';
@@ -957,7 +997,12 @@ function startAutoListen(){
     if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking)setTimeout(startAutoListen,700);
   };
 
-  STATE.recognition.start();
+  try{
+    STATE.recognition.start();
+    dbg('SR.start() called');
+  }catch(ex){
+    dbg('START EXCEPTION: '+ex.message);
+  }
   STATE.recording=true;
   setOrb('user');
   if(hintEl)hintEl.textContent='Listening...';
