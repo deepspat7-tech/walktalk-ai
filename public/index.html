@@ -142,11 +142,11 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
 .btn-pause-modal{flex:1;background:rgba(255,140,66,.15);border:1px solid #FF8C42;color:#FF8C42;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
 .btn-cancel-modal{flex:1;background:rgba(239,68,68,.15);border:1px solid #EF4444;color:#EF4444;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
 .btn-keep-modal{flex:1;background:rgba(76,175,130,.15);border:1px solid #4CAF82;color:#4CAF82;padding:14px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Segoe UI',sans-serif}
-.mic-strip{padding:6px 16px 16px;display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0}
+
 .mic-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FF8C42,#FF6B35);border:none;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(255,140,66,.4);display:flex;align-items:center;justify-content:center;transition:all .2s}
 .mic-btn.active-recording{background:linear-gradient(135deg,#4CAF82,#3D9A6A);animation:mic-pulse 1.5s ease-in-out infinite}
 @keyframes mic-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
-.mic-hint{font-size:10px;color:rgba(255,255,255,.3);text-align:center}
+
 .stars-overlay{position:fixed;inset:0;pointer-events:none;z-index:999;overflow:hidden}
 .star{position:absolute;animation:starFly 2s ease-out forwards}
 @keyframes starFly{0%{transform:translateY(100vh) scale(0);opacity:1}70%{opacity:1}100%{transform:translateY(-20vh) scale(1.5) rotate(360deg);opacity:0}}
@@ -410,6 +410,7 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
   <div class="orb-wrap">
     <div class="orb bot-speaking" id="orb">🎙</div>
     <div class="orb-hint" id="orb-hint">Starting...</div>
+    <button class="mic-btn" id="mic-btn" type="button" style="margin-top:8px">🎤</button>
   </div>
   <div class="chat-area" id="chat"></div>
   <div class="action-card prewalk-card" id="prewalk-card" style="display:none">
@@ -438,10 +439,7 @@ select.text-input option{background-color:#1a1a2e;color:#fff}
     <p>Hydrate, breathe deeply. Tap when ready to continue.</p>
     <div class="btn-row"><button class="btn-green" id="resume-rest-btn" type="button">I'm ready ▶</button></div>
   </div>
-  <div class="mic-strip">
-    <button class="mic-btn" id="mic-btn" type="button">🎤</button>
-    <div class="mic-hint">Tap mic to speak</div>
-  </div>
+
 </div>
 
 <!-- DASHBOARD -->
