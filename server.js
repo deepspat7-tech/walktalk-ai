@@ -58,7 +58,10 @@ app.post('/transcribe', upload.single('audio'), async (req, res) => {
     const fs = require('fs');
     const os = require('os');
     const path = require('path');
-    const tmpPath = path.join(os.tmpdir(), 'walktalk_' + Date.now() + '.webm');
+    // Detect format from uploaded file name — mp4 for Safari, webm for Chrome/Android
+    const origName = req.file.originalname || 'speech.webm';
+    const ext = origName.endsWith('.mp4') ? '.mp4' : '.webm';
+    const tmpPath = path.join(os.tmpdir(), 'walktalk_' + Date.now() + ext);
     fs.writeFileSync(tmpPath, req.file.buffer);
 
     const transcription = await groq.audio.transcriptions.create({

@@ -880,7 +880,7 @@ function initMic(onReady){
     STATE.mediaStream=stream;
     STATE.audioCtx=new(window.AudioContext||window.webkitAudioContext)();
     STATE.analyserNode=STATE.audioCtx.createAnalyser();
-    STATE.analyserNode.fftSize=512;
+    STATE.analyserNode.fftSize=256; // smaller = faster response on mobile
     var src=STATE.audioCtx.createMediaStreamSource(stream);
     src.connect(STATE.analyserNode);
     console.log('Mic ready');
@@ -899,8 +899,10 @@ function startAutoListen(){
     return;
   }
   var hintEl=document.getElementById('orb-hint');
+  // Detect best supported format — Safari uses mp4, Chrome/Android uses webm
   var mimeType=MediaRecorder.isTypeSupported('audio/webm;codecs=opus')?'audio/webm;codecs=opus':
-               MediaRecorder.isTypeSupported('audio/webm')?'audio/webm':'';
+               MediaRecorder.isTypeSupported('audio/webm')?'audio/webm':
+               MediaRecorder.isTypeSupported('audio/mp4')?'audio/mp4':'';
   var recOpts=mimeType?{mimeType:mimeType}:{};
   var recorder=new MediaRecorder(STATE.mediaStream,recOpts);
   STATE.recorder=recorder;
@@ -923,7 +925,9 @@ function startAutoListen(){
     var blob=new Blob(chunks,{type:mimeType||'audio/webm'});
     hintEl.textContent='Thinking...';
     var fd=new FormData();
-    fd.append('audio',blob,'speech.webm');
+    // Use correct extension so Groq knows the format
+  var ext=mimeType&&mimeType.includes('mp4')?'mp4':'webm';
+  fd.append('audio',blob,'speech.'+ext);
     fetch('/transcribe',{method:'POST',body:fd})
       .then(function(r){return r.json();})
       .then(function(data){
@@ -950,16 +954,23 @@ function startAutoListen(){
   document.getElementById('mic-btn').classList.add('recording');
   resetSilenceTimer();
 
-  // Safety timeout: if user never speaks after 8s, abort silently — never send silence to Groq
+  // Safety timeout 1: if user never speaks after 8s, abort silently
   var maxRecordTimeout=setTimeout(function(){
     if(!hasSpoken&&recorder.state==='recording'){
-      recorder.stop(); // onstop will see hasSpoken=false and restart cleanly
+      recorder.stop();
     }
   },8000);
 
+  // Safety timeout 2: if user spoke but silence detection got stuck, force submit after 15s
+  var hardCapTimeout=setTimeout(function(){
+    if(hasSpoken&&recorder.state==='recording'){
+      recorder.stop();
+    }
+  },15000);
+
   // Clear max timeout if user does speak (silence detection will handle normal stop)
   var origStop=recorder.stop.bind(recorder);
-  recorder.stop=function(){clearTimeout(maxRecordTimeout);origStop();};
+  recorder.stop=function(){clearTimeout(maxRecordTimeout);clearTimeout(hardCapTimeout);origStop();};
 
   // Voice-activity detection: stop after 900ms silence post-speech
   silenceCheckInterval=setInterval(function(){
@@ -967,11 +978,12 @@ function startAutoListen(){
     var sum=0;
     for(var i=0;i<analyserData.length;i++){var v=(analyserData[i]-128)/128;sum+=v*v;}
     var rms=Math.sqrt(sum/analyserData.length);
-    var speaking=rms>0.015;
+    var speaking=rms>0.008; // lowered for mobile mic sensitivity
+    if(speaking&&!hasSpoken){console.log('Voice detected, RMS:',rms.toFixed(4));}
     if(speaking){hasSpoken=true;silenceStart=null;}
     else if(hasSpoken){
       if(silenceStart===null)silenceStart=Date.now();
-      else if(Date.now()-silenceStart>900){
+      else if(Date.now()-silenceStart>1200){
         if(recorder.state==='recording')recorder.stop();
       }
     }
