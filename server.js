@@ -14,7 +14,17 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+// Force no-cache on HTML so phones never serve stale versions
+app.use(express.static('public', {
+  etag: false,
+  setHeaders: function(res, path) {
+    if(path.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+}));
 
 const VOICE_MAP = {
   Aryan: 'onyx',
