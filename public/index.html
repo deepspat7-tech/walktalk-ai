@@ -887,153 +887,92 @@ function resetSilenceTimer(){
 }
 
 // ════════ MIC INIT (called once when session starts) ════════
-function initMic(onReady){
-  if(STATE.mediaStream){if(onReady)onReady();return;}
-  navigator.mediaDevices.getUserMedia({audio:true,video:false})
-  .then(function(stream){
-    STATE.mediaStream=stream;
-    STATE.audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    STATE.analyserNode=STATE.audioCtx.createAnalyser();
-    STATE.analyserNode.fftSize=256; // smaller = faster response on mobile
-    var src=STATE.audioCtx.createMediaStreamSource(stream);
-    src.connect(STATE.analyserNode);
-    console.log('Mic ready');
-    if(onReady)onReady();
-  }).catch(function(err){
-    console.error('Mic init error:',err);
-    document.getElementById('orb-hint').textContent='Microphone access needed';
-  });
-}
+// initMic removed — Web Speech API handles mic directly
 
 // ════════ AUTO LISTEN (Web Speech API) ════════
 function startAutoListen(){
-  // If AI is still speaking, wait and retry instead of silently giving up
-  if(STATE.isSpeaking){setTimeout(startAutoListen,500);return;}
-  if(STATE.paused||STATE.inRest||STATE.recording)return;
-  if(!('webkitSpeechRecognition'in window)&&!('SpeechRecognition'in window)){
-    document.getElementById('orb-hint').textContent='Voice not supported on this browser';
+  if(STATE.isSpeaking){setTimeout(startAutoListen,600);return;}
+  if(STATE.paused||STATE.inRest||STATE.recording||!STATE.walkStarted)return;
+  if(STATE.recognition){try{STATE.recognition.abort();}catch(e){} STATE.recognition=null;}
+
+  var SRClass=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SRClass){
+    document.getElementById('orb-hint').textContent='Voice not supported — use Chrome';
     return;
   }
-  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  STATE.recognition=new SR();
-  STATE.recognition.lang='en-US';
-  STATE.recognition.continuous=true;
-  STATE.recognition.interimResults=true;
-  STATE.recognition.maxAlternatives=3;
-  var finalTranscript='';
-  var speechEndTimer=null;
-  var hintEl=document.getElementById('orb-hint');
 
-  STATE.recognition.onresult=function(e){
-    clearTimeout(STATE.silenceTimer);
-    clearTimeout(speechEndTimer);
-    var interim='';
-    for(var i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal){
-        finalTranscript+=e.results[i][0].transcript+' ';
-      } else {
-        interim+=e.results[i][0].transcript;
-      }
+  var sr=new SRClass();
+  sr.lang='en-US';
+  sr.continuous=false;  // false = more reliable on mobile Chrome
+  sr.interimResults=false; // false = only send final results, cleaner
+  sr.maxAlternatives=1;
+  STATE.recognition=sr;
+
+  sr.onstart=function(){
+    STATE.recording=true;
+    setOrb('user');
+    document.getElementById('orb-hint').textContent='Listening...';
+    document.getElementById('mic-btn').classList.add('active-recording');
+  };
+
+  sr.onresult=function(e){
+    var text='';
+    for(var i=0;i<e.results.length;i++){
+      if(e.results[i].isFinal) text+=e.results[i][0].transcript+' ';
     }
-    // Show live preview of words being spoken
-    if(hintEl)hintEl.textContent=interim?('"'+interim+'"'):'Listening...';
-    // Wait 1.1s of silence before submitting
-    if(finalTranscript.trim()){
-      speechEndTimer=setTimeout(function(){
-        var text=finalTranscript.trim();
-        finalTranscript='';
-        if(text){
-          STATE.recognition.stop();
-          addBubble('user',text,PROFILE.name||'You');
-          sendToBot(text);
-        }
-      },1100);
+    text=text.trim();
+    if(text){
+      STATE.recording=false;
+      document.getElementById('mic-btn').classList.remove('active-recording');
+      addBubble('user',text,PROFILE.name||'You');
+      sendToBot(text);
     }
   };
 
-
-
-  function dbg(msg){
-    var d=document.getElementById('debug-bar');
-    if(d)d.textContent=new Date().toLocaleTimeString()+': '+msg;
-    console.log('SR DEBUG:',msg);
-  }
-
-  STATE.recognition.onerror=function(e){
-    clearTimeout(speechEndTimer);finalTranscript='';
-    STATE.recording=false;setOrb(STATE.isSpeaking?'bot':'idle');
-    dbg('ERROR: '+e.error);
-    if(e.error==='not-allowed'){
-      if(hintEl)hintEl.textContent='Microphone permission needed';
-      return;
-    }
-    if(hintEl)hintEl.textContent='Listening...';
-    if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking)setTimeout(startAutoListen,1200);
-  };
-
-  STATE.recognition.onstart=function(){
-    dbg('SR started OK');
-  };
-
-  STATE.recognition.onresult=function(e){
-    clearTimeout(STATE.silenceTimer);
-    clearTimeout(speechEndTimer);
-    var interim='',final='';
-    for(var i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal){finalTranscript+=e.results[i][0].transcript+' ';}
-      else{interim+=e.results[i][0].transcript;}
-    }
-    dbg('Heard: '+(interim||finalTranscript).slice(0,60));
-    if(hintEl)hintEl.textContent=interim?interim:'Listening...';
-    if(finalTranscript.trim()){
-      speechEndTimer=setTimeout(function(){
-        var text=finalTranscript.trim();
-        finalTranscript='';
-        if(text){
-          dbg('Sending: '+text.slice(0,40));
-          STATE.recognition.stop();
-          addBubble('user',text,PROFILE.name||'You');
-          sendToBot(text);
-        }
-      },1100);
-    }
-  };
-
-  STATE.recognition.onend=function(){
-    dbg('SR ended. recording='+STATE.recording+' speaking='+STATE.isSpeaking+' paused='+STATE.paused);
-    clearTimeout(speechEndTimer);
-    if(finalTranscript.trim()){
-      var text=finalTranscript.trim();finalTranscript='';
-      addBubble('user',text,PROFILE.name||'You');sendToBot(text);
-      return;
-    }
+  sr.onerror=function(e){
     STATE.recording=false;
-    if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking)setTimeout(startAutoListen,700);
+    document.getElementById('mic-btn').classList.remove('active-recording');
+    document.getElementById('orb-hint').textContent='Listening...';
+    if(e.error==='not-allowed'){
+      document.getElementById('orb-hint').textContent='Allow microphone in browser settings';
+      return;
+    }
+    // Restart on any other error
+    if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking&&STATE.walkStarted){
+      setTimeout(startAutoListen,1000);
+    }
+  };
+
+  sr.onend=function(){
+    STATE.recording=false;
+    document.getElementById('mic-btn').classList.remove('active-recording');
+    // Auto-restart to keep listening continuously
+    if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking&&STATE.walkStarted){
+      setTimeout(startAutoListen,500);
+    }
   };
 
   try{
-    STATE.recognition.start();
-    dbg('SR.start() called');
+    sr.start();
   }catch(ex){
-    dbg('START EXCEPTION: '+ex.message);
+    STATE.recording=false;
+    if(!STATE.paused&&!STATE.inRest&&!STATE.isSpeaking&&STATE.walkStarted){
+      setTimeout(startAutoListen,1000);
+    }
   }
-  STATE.recording=true;
-  setOrb('user');
-  if(hintEl)hintEl.textContent='Listening...';
-  document.getElementById('mic-btn').classList.add('active-recording');
-  resetSilenceTimer();
 }
 
 function stopListening(){
-  clearTimeout(STATE.silenceTimer);
-  if(STATE.recognition){try{STATE.recognition.abort();}catch(e){}}
-  STATE.recognition=null;
+  if(STATE.recognition){
+    try{STATE.recognition.abort();}catch(e){}
+    STATE.recognition=null;
+  }
   STATE.recording=false;
   document.getElementById('mic-btn').classList.remove('active-recording');
 }
 
 function sendToBot(userText){
-  clearTimeout(STATE.silenceTimer);stopListening();
+  stopListening();
   STATE.messages.push({role:'user',content:userText});
   setOrb('bot');STATE.isSpeaking=true;
   var typing=addTyping();
@@ -1045,7 +984,7 @@ function sendToBot(userText){
   .then(function(r){return r.json();})
   .then(function(data){
     typing.remove();
-    var reply=data.reply||data.error||'Sorry, something went wrong.';
+    var reply=data.reply||'Sorry, something went wrong.';
     STATE.messages.push({role:'assistant',content:reply});
     STATE.chatExchanges++;
     addBubble('bot',reply,STATE.voice,true);
@@ -1059,19 +998,18 @@ function sendToBot(userText){
         STATE.isSpeaking=true;
         speakText(readyMsg,function(){
           STATE.isSpeaking=false;
-          // Restart listening after ready message too
-          if(!STATE.paused&&!STATE.inRest)setTimeout(startAutoListen,800);
+          setTimeout(startAutoListen,800);
         });
         return;
       }
-      // Give mobile mic enough time to reset before listening again
-      if(!STATE.paused&&!STATE.inRest){setTimeout(startAutoListen,800);}
+      if(!STATE.paused&&!STATE.inRest) setTimeout(startAutoListen,500);
     });
   })
   .catch(function(){
     typing.remove();STATE.isSpeaking=false;
-    addBubble('bot','Connection issue — please check the server.',STATE.voice,true);
-    setOrb('idle');setTimeout(startAutoListen,2000);
+    addBubble('bot','Connection issue — please try again.',STATE.voice,true);
+    setOrb('idle');
+    if(STATE.walkStarted) setTimeout(startAutoListen,2000);
   });
 }
 
@@ -1113,7 +1051,7 @@ function speakText(text,onDone){
 // ════════ END SESSION ════════
 function endSession(reason){
   clearInterval(STATE.timerInterval);clearInterval(STATE.restInterval);clearTimeout(STATE.silenceTimer);
-  stopAllAudio();stopListening();releaseMic();
+  stopAllAudio();stopListening();
   var mins=STATE.walkStarted?Math.ceil((STATE.totalSeconds-STATE.secondsLeft)/60)||STATE.duration:0;
   if(mins>0)saveWalk(mins,STATE.mood,STATE.voice,STATE.pauseCount,Math.floor(STATE.totalRestSeconds/60),STATE.extensionCount,STATE.stepCount,reason||'Other');
   // If walk was active, get farewell summary from AI before going to setup
